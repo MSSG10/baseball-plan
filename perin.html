@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Perin's Baseball Training Plan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0d1f1a;
+    --teal: #00a878;
+    --teal-dark: #007a57;
+    --teal-light: #00d49a;
+    --gold: #ffd166;
+    --gold-dark: #e6b800;
+    --cream: #f5f0e8;
+    --white: #ffffff;
+    --gray: #7a9e8a;
+    --green: #2ecc71;
+    --green-dark: #27ae60;
+    --blue: #4FC3F7;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--navy);
+    color: var(--white);
+    font-family: 'Barlow', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      repeating-linear-gradient(0deg, transparent, transparent 40px, rgba(255,255,255,.015) 40px, rgba(255,255,255,.015) 41px),
+      repeating-linear-gradient(90deg, transparent, transparent 40px, rgba(255,255,255,.015) 40px, rgba(255,255,255,.015) 41px);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .page { position: relative; z-index: 1; max-width: 900px; margin: 0 auto; padding: 0 16px 60px; }
+
+  /* ── HERO ── */
+  .hero {
+    padding: 36px 0 28px;
+    text-align: center;
+  }
+  .hero-eyebrow {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--teal-light);
+    margin-bottom: 8px;
+  }
+  .hero-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(64px, 14vw, 110px);
+    line-height: .9;
+    color: var(--white);
+    text-shadow: 4px 4px 0 var(--teal-dark);
+    letter-spacing: .02em;
+  }
+  .hero-sub {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: .12em;
+    color: var(--gray);
+    text-transform: uppercase;
+    margin-top: 6px;
+  }
+  .hero-divider {
+    width: 60px; height: 4px;
+    background: var(--teal);
+    margin: 16px auto 0;
+    border-radius: 2px;
+  }
+
+  /* ── STATS BAR ── */
+  .stats-bar {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin: 24px 0;
+  }
+  .stat {
+    background: rgba(255,255,255,.06);
+    border: 1px solid rgba(255,255,255,.1);
+    border-radius: 12px;
+    padding: 16px 10px;
+    text-align: center;
+  }
+  .stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 42px;
+    line-height: 1;
+    color: var(--gold);
+  }
+  .stat-lbl {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--gray);
+    margin-top: 3px;
+  }
+
+  /* ── PROGRESS BAR ── */
+  .overall-progress {
+    background: rgba(255,255,255,.06);
+    border: 1px solid rgba(255,255,255,.1);
+    border-radius: 12px;
+    padding: 16px 20px;
+    margin-bottom: 28px;
+  }
+  .op-label {
+    display: flex;
+    justify-content: space-between;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--gray);
+    margin-bottom: 10px;
+  }
+  .op-label span:last-child { color: var(--gold); }
+  .op-track {
+    height: 10px;
+    background: rgba(255,255,255,.1);
+    border-radius: 5px;
+    overflow: hidden;
+  }
+  .op-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--teal), var(--gold));
+    border-radius: 5px;
+    transition: width .4s ease;
+  }
+
+  /* ── SECTION LABEL ── */
+  .section-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--gray);
+    margin-bottom: 12px;
+    padding-left: 2px;
+  }
+
+  /* ── WEEK CARDS ── */
+  .weeks { display: flex; flex-direction: column; gap: 16px; margin-bottom: 32px; }
+
+  .week-card {
+    background: rgba(255,255,255,.05);
+    border: 1px solid rgba(255,255,255,.1);
+    border-radius: 16px;
+    overflow: hidden;
+    transition: border-color .2s;
+  }
+  .week-card.complete { border-color: var(--green); }
+
+  .week-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 20px;
+    border-bottom: 1px solid rgba(255,255,255,.07);
+    gap: 12px;
+  }
+  .week-info { flex: 1; }
+  .week-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    line-height: 1;
+    color: var(--white);
+  }
+  .week-focus {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: .05em;
+    color: var(--gray);
+    margin-top: 1px;
+  }
+  .week-badge {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 20px;
+    background: rgba(255,255,255,.08);
+    color: var(--gray);
+    white-space: nowrap;
+    transition: background .2s, color .2s;
+  }
+  .week-card.complete .week-badge { background: var(--green); color: var(--navy); }
+
+  .week-sessions { padding: 16px 20px; }
+  .sessions-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    color: var(--gray);
+    margin-bottom: 12px;
+  }
+  .checkboxes { display: flex; gap: 10px; flex-wrap: wrap; }
+  .session-item { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+  .session-day {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--gray);
+  }
+  .check-btn {
+    width: 54px;
+    height: 54px;
+    border-radius: 12px;
+    border: 2px solid rgba(255,255,255,.2);
+    background: rgba(255,255,255,.05);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform .15s, border-color .2s, background .2s;
+    -webkit-tap-highlight-color: transparent;
+    position: relative;
+    overflow: hidden;
+  }
+  .check-btn:active { transform: scale(.9); }
+  .check-btn.done { background: var(--green); border-color: var(--green-dark); }
+  .check-btn .checkmark {
+    font-size: 26px;
+    opacity: 0;
+    transform: scale(.3) rotate(-20deg);
+    transition: opacity .2s, transform .2s;
+    color: var(--navy);
+    font-weight: bold;
+    line-height: 1;
+    user-select: none;
+  }
+  .check-btn.done .checkmark { opacity: 1; transform: scale(1) rotate(0deg); }
+
+  .week-pbar {
+    margin-top: 14px;
+    height: 6px;
+    background: rgba(255,255,255,.08);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  .week-pfill {
+    height: 100%;
+    background: var(--green);
+    border-radius: 3px;
+    transition: width .3s ease;
+  }
+
+  /* ── EXERCISES ── */
+  .exercises-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 32px;
+  }
+  .ex-block {
+    background: rgba(255,255,255,.05);
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: 14px;
+    overflow: hidden;
+  }
+  .ex-block-header {
+    padding: 12px 16px;
+    border-bottom: 1px solid rgba(255,255,255,.07);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .ex-block-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px;
+    letter-spacing: .03em;
+    color: var(--white);
+    line-height: 1;
+  }
+  .ex-block-focus {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--gray);
+    letter-spacing: .04em;
+    font-style: italic;
+  }
+  .ex-type-pill {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    padding: 2px 8px;
+    border-radius: 10px;
+    margin-left: auto;
+    flex-shrink: 0;
+  }
+  .pill-move { background: rgba(0,168,120,.2); color: #00d49a; }
+  .pill-power { background: rgba(255,209,102,.15); color: #ffd166; }
+
+  .ex-list { padding: 10px 16px 14px; }
+  .ex-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 6px 0;
+    border-bottom: 1px solid rgba(255,255,255,.05);
+    font-size: 12.5px;
+    line-height: 1.4;
+  }
+  .ex-item:last-child { border-bottom: none; }
+  .ex-dot-sm { width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; margin-top: 5px; }
+  .dot-move { background: #00d49a; }
+  .dot-rot { background: #ffd166; }
+  .ex-name-sm { flex: 1; color: var(--cream); font-weight: 500; }
+  .ex-sets-sm { font-size: 11px; color: var(--gray); white-space: nowrap; flex-shrink: 0; }
+  .ex-cue-sm {
+    display: block;
+    font-size: 10.5px;
+    color: var(--gray);
+    font-style: italic;
+    margin-top: 1px;
+    font-weight: 400;
+  }
+
+  /* ── WARMUP / COOLDOWN ── */
+  .bottom-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 32px;
+  }
+  .info-box {
+    background: rgba(255,255,255,.05);
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: 14px;
+    padding: 16px;
+  }
+  .info-box-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    color: var(--teal-light);
+    margin-bottom: 10px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(255,255,255,.07);
+  }
+  .info-row {
+    font-size: 12.5px;
+    color: var(--cream);
+    padding: 5px 0;
+    border-bottom: 1px solid rgba(255,255,255,.05);
+    line-height: 1.4;
+  }
+  .info-row:last-child { border-bottom: none; }
+  .info-row strong { color: var(--gold); font-weight: 600; }
+
+  /* ── RULES ── */
+  .rules-box {
+    background: rgba(0,168,120,.06);
+    border: 1px solid rgba(0,168,120,.25);
+    border-radius: 14px;
+    padding: 16px 20px;
+    margin-bottom: 32px;
+  }
+  .rules-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    color: var(--teal-light);
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(0,168,120,.2);
+  }
+  .rules-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 8px;
+  }
+  .rule-item {
+    background: rgba(255,255,255,.04);
+    border-radius: 8px;
+    padding: 8px 10px;
+    font-size: 11.5px;
+    color: rgba(245,240,232,.7);
+    line-height: 1.5;
+  }
+  .rule-item strong { display: block; color: var(--cream); font-weight: 600; margin-bottom: 2px; font-size: 12px; }
+
+  /* ── CELEBRATION ── */
+  .celebration {
+    display: none;
+    text-align: center;
+    background: rgba(46,204,113,.1);
+    border: 1px solid var(--green);
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 24px;
+  }
+  .celebration.show { display: block; }
+  .cel-emoji { font-size: 48px; margin-bottom: 8px; }
+  .cel-text {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 32px;
+    color: var(--green);
+    letter-spacing: .04em;
+  }
+  .cel-sub {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 16px;
+    color: rgba(255,255,255,.6);
+    margin-top: 4px;
+  }
+
+  /* ── RESET ── */
+  .reset-btn {
+    display: block;
+    margin: 0 auto;
+    background: none;
+    border: 1px solid rgba(255,255,255,.15);
+    border-radius: 8px;
+    color: var(--gray);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    padding: 10px 24px;
+    cursor: pointer;
+    transition: background .2s, color .2s;
+  }
+  .reset-btn:hover { background: rgba(255,255,255,.07); color: var(--cream); }
+
+  .nav-link {
+    display: block;
+    text-align: center;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--gray);
+    text-decoration: none;
+    margin-bottom: 32px;
+    transition: color .2s;
+  }
+  .nav-link:hover { color: var(--gold); }
+
+  @keyframes pop {
+    0%   { transform: scale(1); }
+    40%  { transform: scale(1.25); }
+    70%  { transform: scale(.9); }
+    100% { transform: scale(1); }
+  }
+  .pop { animation: pop .3s ease forwards; }
+
+  @media (max-width: 560px) {
+    .exercises-grid { grid-template-columns: 1fr; }
+    .bottom-row { grid-template-columns: 1fr; }
+    .rules-grid { grid-template-columns: 1fr 1fr; }
+    .stats-bar { grid-template-columns: repeat(3,1fr); gap: 8px; }
+    .stat-num { font-size: 32px; }
+    .check-btn { width: 48px; height: 48px; }
+    .checkboxes { gap: 8px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <a class="nav-link" href="atley.html">&#8594; Switch to Atley's Page</a>
+
+  <div class="hero">
+    <div class="hero-eyebrow">⚾ Summer 2025 Training Plan</div>
+    <div class="hero-name">Perin</div>
+    <div class="hero-sub">Age 7 · Rotational Power · 8 Weeks</div>
+    <div class="hero-divider"></div>
+  </div>
+
+  <div id="celebration" class="celebration">
+    <div class="cel-emoji">🏆</div>
+    <div class="cel-text">All 28 sessions done!</div>
+    <div class="cel-sub">You worked so hard all summer, Perin. That's incredible!</div>
+  </div>
+
+  <div class="stats-bar">
+    <div class="stat">
+      <div class="stat-num" id="done-count">0</div>
+      <div class="stat-lbl">Done</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num" id="left-count">28</div>
+      <div class="stat-lbl">Left</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num" id="pct-count">0%</div>
+      <div class="stat-lbl">Complete</div>
+    </div>
+  </div>
+
+  <div class="overall-progress">
+    <div class="op-label">
+      <span>Summer progress</span>
+      <span id="op-pct-label">0 / 28 sessions</span>
+    </div>
+    <div class="op-track"><div class="op-fill" id="op-fill" style="width:0%"></div></div>
+  </div>
+
+  <div class="section-label">Tap to check off each session ↓</div>
+
+  <div class="weeks" id="weeks-container"></div>
+
+  <div class="section-label">Your exercises by phase</div>
+  <div class="exercises-grid">
+
+    <div class="ex-block">
+      <div class="ex-block-header">
+        <div>
+          <div class="ex-block-title">Weeks 1–2</div>
+          <div class="ex-block-focus">Learning the machine</div>
+        </div>
+        <span class="ex-type-pill pill-move">Movement</span>
+      </div>
+      <div class="ex-list">
+        <div class="ex-item"><span class="ex-dot-sm dot-move"></span><span class="ex-name-sm">Bodyweight squat<span class="ex-cue-sm">"Chair behind you — sit back!"</span></span><span class="ex-sets-sm">3×8</span></div>
+        <div class="ex-item"><span class="ex-dot-sm dot-move"></span><span class="ex-name-sm">Hip hinge (broomstick)<span class="ex-cue-sm">Head, back, tailbone all touching</span></span><span class="ex-sets-sm">10 reps</span></div>
+        <div class="ex-item"><span class="ex-dot-sm dot-move"></span><span class="ex-name-sm">Single-leg balance<span class="ex-cue-sm">Try with eyes closed!</span></span><span class="ex-sets-sm">3×10 sec</span></div>
+        <div class="ex-item"><span class="ex-dot-sm dot-rot"></span><span class="ex-name-sm">Trunk rotations<span class="ex-cue-sm">"Belly button spins side to side"</span></span><span class="ex-sets-sm">2×15</span></div>
+        <div class="ex-item"><span class="ex-dot-sm dot-rot"></span><span class="ex-name-sm">Step-and-twist<span class="ex-cue-sm">Step then spin your body</span></span><span class="ex-sets-sm">2×8/side</span></div>
+      </div>
+    </div>
+
+    <div class="ex-block">
+      <div class="ex-block-header">
+        <div>
+          <div class="ex-block-title">Weeks 3–4</div>
+          <div class="ex-block-focus">Loading and exploding</div>
+        </div>
+        <span class="ex-type-pill pill-power">Power</span>
+      </div>
+      <div class="ex-list">
+        <div class="ex-item"><span class="ex-dot-sm dot-move"></span><span class="ex-name-sm">Goblet squat (hold dumbbell)<span class="ex-cue-sm">2–3 lb, chest high, sit back</span></span><span class="ex-sets-sm">3×8</span></div>
+        <div class="ex-item"><span class="ex-dot-sm dot-move"></span><span class="ex-name-sm">Reverse lunge<span class="ex-cue-sm">Step back, stand up tall</span></span><span class="ex-sets-sm">3×6/leg</span></div>
+        <div class="ex-item"><span class="ex-dot-sm dot-move"></span><span class="ex-name-sm">Dead bug<span class="ex-cue-sm">Opposite arm and leg, super slow</span></span><span class="ex-sets-sm">2×6/side</span></div>
+        <div class="ex-item"><span class="ex-dot-sm dot-rot"></span><span class="ex-name-sm">DB press into wall (side-on)<span class="ex-cue-sm">Hips go first, then arms push</span></span><span class="ex-sets-sm">2×8/side</span></div>
+        <div class="ex-item"><span class="ex-dot-sm dot-rot"></span><span class="ex-name-sm">Hip turn drill<span class="ex-cue-sm">Feet stay still — just spin hips!</span></span><span class="ex-sets-sm">2×10</span></div>
+      </div>
+    </div>
+
+    <div class="ex-block">
+      <div class="ex-block-header">
+        <div>
+          <div class="ex-block-title">Weeks 5–6</div>
+          <div class="ex-block-focus">Baseball moves</div>
+        </div>
+        <span class="ex-type-pill pill-power">Power</span>
+      </div>
+      <div class="ex-list">
+        <div class="ex-item"><span class="ex-dot-sm dot-move"></span><span class="ex-name-sm">Single-leg RDL<span class="ex-cue-sm">One leg, tip forward like a teapot</span></span><span class="ex-sets-sm">2×6/leg</span></div>
+        <div class="ex-item"><span class="ex-dot-sm dot-move"></span><span class="ex-name-sm">Half-kneeling DB press<span class="ex-cue-sm">One knee down, press up slow</span></span><span class="ex-sets-sm">2×8/side</span></div>
+        <div class="ex-item"><span class="ex-dot-sm dot-move"></span><span class="ex-name-sm">Plank → shoulder taps<span class="ex-cue-sm">Hold still, then tap each shoulder</span></span><span class="ex-sets-sm">3×20 sec</span></div>
+        <div class="ex-item"><span class="ex-dot-sm dot-rot"></span><span class="ex-name-sm">Slow swing with dumbbell<span class="ex-cue-sm">Load → hips → hit → finish — super slow!</span></span><span class="ex-sets-sm">3×6/side</span></div>
+        <div class="ex-item"><span class="ex-dot-sm dot-rot"></span><span class="ex-name-sm">Pallof press (band)<span class="ex-cue-sm">Push out and hold — don't spin!</span></span><span class="ex-sets-sm">2×8/side</span></div>
+      </div>
+    </div>
+
+    <div class="ex-block">
+      <div class="ex-block-header">
+        <div>
+          <div class="ex-block-title">Weeks 7–8</div>
+          <div class="ex-block-focus">Connecting the chain</div>
+        </div>
+        <span class="ex-type-pill pill-power">Power</span>
+      </div>
+      <div class="ex-list">
+        <div class="ex-item"><span class="ex-dot-sm dot-move"></span><span class="ex-name-sm">Squat → stand → press<span class="ex-cue-sm">Squat down, stand up, push up</span></span><span class="ex-sets-sm">3×6</span></div>
+        <div class="ex-item"><span class="ex-dot-sm dot-move"></span><span class="ex-name-sm">Lateral lunge<span class="ex-cue-sm">Big step sideways, sit into it</span></span><span class="ex-sets-sm">3×6/side</span></div>
+        <div class="ex-item"><span class="ex-dot-sm dot-move"></span><span class="ex-name-sm">Plank → rotation<span class="ex-cue-sm">Plank then reach one arm to the sky</span></span><span class="ex-sets-sm">2×8/side</span></div>
+        <div class="ex-item"><span class="ex-dot-sm dot-rot"></span><span class="ex-name-sm">Scoop toss with dumbbell<span class="ex-cue-sm">Hip drives the scoop up</span></span><span class="ex-sets-sm">2×8/side</span></div>
+        <div class="ex-item"><span class="ex-dot-sm dot-rot"></span><span class="ex-name-sm">Full swing review<span class="ex-cue-sm">All 4 steps together — teach it to Dad!</span></span><span class="ex-sets-sm">3×6/side</span></div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="bottom-row">
+    <div class="info-box">
+      <div class="info-box-title">Warm-Up Games</div>
+      <div class="info-row"><strong>Crab walk races</strong> — 20 ft, 2 rounds</div>
+      <div class="info-row"><strong>Bear crawl relay</strong> — shoulder stability</div>
+      <div class="info-row"><strong>Lateral shuffle tag</strong> — stay low</div>
+      <div class="info-row"><strong>Pitcher's windup freeze</strong> — hold 3 sec</div>
+    </div>
+    <div class="info-box">
+      <div class="info-box-title">Cool-Down</div>
+      <div class="info-row"><strong>Hip flexor stretch</strong> — 20 sec each side</div>
+      <div class="info-row"><strong>Seated trunk twist</strong> — 5 reps each way</div>
+      <div class="info-row"><strong>"Reach for sky, fall like tree"</strong></div>
+      <div class="info-row"><strong>Deep breaths</strong> — 5 slow counts in/out</div>
+    </div>
+  </div>
+
+  <div class="rules-box">
+    <div class="rules-title">Dad's Rules</div>
+    <div class="rules-grid">
+      <div class="rule-item"><strong>Stop before struggle</strong>Never train until it hurts. Easy and right wins.</div>
+      <div class="rule-item"><strong>Hips go first</strong>Every swing, every throw — hips lead!</div>
+      <div class="rule-item"><strong>Weights are light</strong>2–3 lb dumbbells. Light is right!</div>
+      <div class="rule-item"><strong>Technique wins</strong>"Your hips went first!" is the best thing Dad can say.</div>
+      <div class="rule-item"><strong>Rest days matter</strong>Mon, Wed, Fri only. Rest helps you grow stronger.</div>
+      <div class="rule-item"><strong>Teach it back</strong>Show Dad a move you learned. That's how you own it.</div>
+    </div>
+  </div>
+
+  <button class="reset-btn" onclick="resetAll()">Reset all checkboxes</button>
+</div>
+
+<script>
+const KEY = 'perin_baseball_v1';
+const WEEKS_DATA = [
+  { label: 'Weeks 1–2', focus: 'Learning the machine' },
+  { label: 'Weeks 3–4', focus: 'Loading and exploding' },
+  { label: 'Weeks 5–6', focus: 'Baseball moves' },
+  { label: 'Weeks 7–8', focus: 'Connecting the chain' },
+];
+const DAYS = ['Mon','Wed','Fri','Mon','Wed','Fri','Mon'];
+
+function loadState() {
+  try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch(e) { return {}; }
+}
+function saveState(s) {
+  try { localStorage.setItem(KEY, JSON.stringify(s)); } catch(e) {}
+}
+
+let state = loadState();
+
+function key(w, s) { return 'w'+w+'s'+s; }
+
+function updateTotals() {
+  let done = 0;
+  for(let w=0;w<4;w++) for(let s=0;s<7;s++) if(state[key(w,s)]) done++;
+  const total = 28;
+  const left = total - done;
+  const pct = Math.round(done / total * 100);
+  document.getElementById('done-count').textContent = done;
+  document.getElementById('left-count').textContent = left;
+  document.getElementById('pct-count').textContent = pct + '%';
+  document.getElementById('op-fill').style.width = pct + '%';
+  document.getElementById('op-pct-label').textContent = done + ' / ' + total + ' sessions';
+  document.getElementById('celebration').classList.toggle('show', done === total);
+  for(let w=0;w<4;w++) {
+    let wd = 0;
+    for(let s=0;s<7;s++) if(state[key(w,s)]) wd++;
+    const card = document.getElementById('wcard-'+w);
+    const fill = document.getElementById('wpfill-'+w);
+    const badge = document.getElementById('wbadge-'+w);
+    if(fill) fill.style.width = Math.round(wd/7*100)+'%';
+    if(card) card.classList.toggle('complete', wd===7);
+    if(badge) badge.textContent = wd===7 ? '✓ Complete' : wd+' / 7';
+  }
+}
+
+function toggle(w, s) {
+  const k = key(w,s);
+  state[k] = !state[k];
+  saveState(state);
+  const btn = document.getElementById('btn-'+w+'-'+s);
+  if(state[k]) {
+    btn.classList.add('done');
+    btn.classList.add('pop');
+    btn.addEventListener('animationend', () => btn.classList.remove('pop'), {once:true});
+  } else {
+    btn.classList.remove('done');
+  }
+  updateTotals();
+}
+
+function resetAll() {
+  if(!confirm("Reset all of Perin's checkboxes?")) return;
+  state = {};
+  saveState(state);
+  document.querySelectorAll('.check-btn').forEach(b => b.classList.remove('done'));
+  updateTotals();
+}
+
+function buildWeeks() {
+  const container = document.getElementById('weeks-container');
+  WEEKS_DATA.forEach((wk, w) => {
+    const card = document.createElement('div');
+    card.className = 'week-card';
+    card.id = 'wcard-'+w;
+    let wd = 0;
+    for(let s=0;s<7;s++) if(state[key(w,s)]) wd++;
+    let btns = '';
+    DAYS.forEach((day, s) => {
+      const done = state[key(w,s)];
+      btns += `<div class="session-item">
+        <span class="session-day">${day}</span>
+        <button class="check-btn${done?' done':''}" id="btn-${w}-${s}" onclick="toggle(${w},${s})" aria-label="${wk.label} ${day} session">
+          <span class="checkmark">✓</span>
+        </button>
+      </div>`;
+    });
+    card.innerHTML = `
+      <div class="week-top">
+        <div class="week-info">
+          <div class="week-num">${wk.label}</div>
+          <div class="week-focus">${wk.focus}</div>
+        </div>
+        <span class="week-badge" id="wbadge-${w}">${wd} / 7</span>
+      </div>
+      <div class="week-sessions">
+        <div class="sessions-label">Tap each session when done</div>
+        <div class="checkboxes">${btns}</div>
+        <div class="week-pbar"><div class="week-pfill" id="wpfill-${w}" style="width:${Math.round(wd/7*100)}%"></div></div>
+      </div>`;
+    container.appendChild(card);
+    if(wd===7) card.classList.add('complete');
+  });
+}
+
+buildWeeks();
+updateTotals();
+</script>
+</body>
+</html>

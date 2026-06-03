@@ -8,36 +8,68 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#0c1520;--accent:#d62828;--gold:#f4a900;--gold-light:#ffd166;--cream:#f0ebe0;--white:#fff;--gray:#7a90a8;--green:#2ecc71;--green-dark:#239954;}
+:root{--bg:#0c1520;--accent:#d62828;--gold:#f4a900;--gold-light:#ffd166;--cream:#f0ebe0;--white:#fff;--gray:#7a90a8;--green:#2ecc71;--green-dark:#239954;--orange:#e67e22;}
 *{box-sizing:border-box;margin:0;padding:0;}html{scroll-behavior:smooth;}
 body{background:var(--bg);color:var(--white);font-family:'Barlow',sans-serif;min-height:100vh;overflow-x:hidden;}
 body::before{content:'';position:fixed;inset:0;background-image:repeating-linear-gradient(0deg,transparent,transparent 40px,rgba(255,255,255,.012) 40px,rgba(255,255,255,.012) 41px),repeating-linear-gradient(90deg,transparent,transparent 40px,rgba(255,255,255,.012) 40px,rgba(255,255,255,.012) 41px);pointer-events:none;z-index:0;}
+
 .sticky-header{position:sticky;top:0;z-index:100;background:rgba(12,21,32,.97);border-bottom:1px solid rgba(255,255,255,.1);padding:10px 16px 12px;backdrop-filter:blur(8px);}
 .hero-row{display:flex;align-items:center;gap:12px;margin-bottom:10px;}
 .hero-name{font-family:'Bebas Neue',sans-serif;font-size:42px;line-height:1;color:var(--white);text-shadow:3px 3px 0 #a61e1e;letter-spacing:.02em;}
 .hero-meta{font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--gray);}
 .nav-link{margin-left:auto;font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--gray);text-decoration:none;border:1px solid rgba(255,255,255,.15);border-radius:6px;padding:5px 10px;white-space:nowrap;}
 .nav-link:hover{color:var(--gold);border-color:var(--gold);}
-.stats-row{display:flex;gap:8px;align-items:stretch;margin-bottom:8px;flex-wrap:wrap;}
-.stat-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.09);border-radius:8px;padding:7px 10px;text-align:center;flex:1;min-width:55px;}
-.stat-num{font-family:'Bebas Neue',sans-serif;font-size:26px;line-height:1;color:var(--gold);}
-.stat-lbl{font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--gray);margin-top:1px;}
-.stars-card{background:rgba(244,169,0,.1);border-color:rgba(244,169,0,.25);flex:2;}
-.star-inner{display:flex;align-items:center;justify-content:center;gap:6px;}
-.star-ico{font-size:20px;}
-.star-cols{display:flex;gap:10px;align-items:center;}
+
+/* STATS */
+.stats-row{display:flex;gap:6px;align-items:stretch;margin-bottom:8px;flex-wrap:wrap;}
+.stat-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.09);border-radius:8px;padding:6px 8px;text-align:center;flex:1;min-width:50px;}
+.stat-num{font-family:'Bebas Neue',sans-serif;font-size:24px;line-height:1;color:var(--gold);}
+.stat-lbl{font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--gray);margin-top:1px;}
+.stars-card{background:rgba(244,169,0,.1);border-color:rgba(244,169,0,.25);flex:1.8;}
+.star-inner{display:flex;align-items:center;justify-content:center;gap:5px;}
+.star-ico{font-size:18px;}
+.star-cols{display:flex;gap:8px;align-items:center;}
 .star-col{text-align:center;}
-.star-val{font-family:'Bebas Neue',sans-serif;font-size:22px;line-height:1;color:var(--gold);}
-.star-lbl-sm{font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:rgba(244,169,0,.55);}
-.star-div{width:1px;height:28px;background:rgba(244,169,0,.2);}
-.bucket-card{background:rgba(46,204,113,.07);border:1px solid rgba(46,204,113,.2);border-radius:8px;padding:7px 10px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;flex:1.5;min-width:90px;}
-.bucket-btn{background:var(--green);border:none;border-radius:6px;color:#0c1520;font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:5px 10px;cursor:pointer;white-space:nowrap;-webkit-tap-highlight-color:transparent;}
-.bucket-btn:active{transform:scale(.93);}
-.bucket-stat{font-family:'Barlow Condensed',sans-serif;font-size:10px;color:rgba(46,204,113,.7);letter-spacing:.04em;text-align:center;}
-.prog-label{display:flex;justify-content:space-between;font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--gray);margin-bottom:4px;}
-.prog-label span:last-child{color:var(--gold);}
-.prog-bar-wrap{background:rgba(255,255,255,.07);border-radius:4px;height:7px;overflow:hidden;}
-.prog-bar-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--gold));border-radius:4px;transition:width .4s ease;}
+.star-val{font-family:'Bebas Neue',sans-serif;font-size:20px;line-height:1;color:var(--gold);}
+.star-lbl-sm{font-family:'Barlow Condensed',sans-serif;font-size:8px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:rgba(244,169,0,.5);}
+.star-div{width:1px;height:24px;background:rgba(244,169,0,.2);}
+.streak-card{background:rgba(255,107,107,.08);border:1px solid rgba(255,107,107,.2);}
+.streak-card .stat-num{color:#ff6b6b;}
+.streak-card .stat-lbl{color:rgba(255,107,107,.6);}
+.streak-bonus{font-family:'Barlow Condensed',sans-serif;font-size:8px;font-weight:700;color:#ff6b6b;letter-spacing:.06em;text-transform:uppercase;}
+
+/* BONUS CARDS */
+.bonus-row{display:flex;gap:6px;margin-bottom:8px;}
+.bonus-card{background:rgba(46,204,113,.07);border:1px solid rgba(46,204,113,.2);border-radius:8px;padding:6px 10px;flex:1;display:flex;align-items:center;gap:8px;}
+.bonus-btns{display:flex;gap:4px;}
+.bonus-btn{border:none;border-radius:5px;font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:.04em;padding:4px 8px;cursor:pointer;-webkit-tap-highlight-color:transparent;}
+.bonus-plus{background:var(--green);color:#0c1520;}
+.bonus-minus{background:rgba(255,255,255,.12);color:var(--gray);font-size:10px;}
+.bonus-plus:active,.bonus-minus:active{transform:scale(.9);}
+.bonus-info{flex:1;}
+.bonus-name{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:600;color:var(--cream);letter-spacing:.04em;}
+.bonus-stat{font-family:'Barlow Condensed',sans-serif;font-size:9px;color:rgba(46,204,113,.6);letter-spacing:.04em;}
+.speed-card{background:rgba(91,170,240,.07);border:1px solid rgba(91,170,240,.2);}
+.speed-card .bonus-name{color:#5baaf0;}
+.speed-card .bonus-stat{color:rgba(91,170,240,.6);}
+.speed-btn-plus{background:#5baaf0;color:#0c1520;}
+
+/* DUAL PROGRESS */
+.dual-prog{margin-bottom:4px;}
+.prog-labels{display:flex;justify-content:space-between;font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;margin-bottom:4px;}
+.prog-lbl-orange{color:var(--orange);}
+.prog-lbl-green{color:var(--green);}
+.dual-track{position:relative;height:10px;background:rgba(255,255,255,.06);border-radius:5px;overflow:hidden;}
+.fill-orange{position:absolute;top:0;left:0;height:100%;background:var(--orange);opacity:.4;border-radius:5px;transition:width .4s;}
+.fill-green{position:absolute;top:0;left:0;height:100%;background:var(--green);border-radius:5px;transition:width .4s;z-index:1;}
+
+/* SHOUT */
+.shout-overlay{position:fixed;inset:0;z-index:300;display:flex;align-items:center;justify-content:center;pointer-events:none;opacity:0;transition:opacity .15s;}
+.shout-overlay.show{opacity:1;}
+.shout-text{font-family:'Bebas Neue',sans-serif;font-size:clamp(42px,10vw,72px);color:var(--white);text-shadow:4px 4px 0 #a61e1e,0 0 40px rgba(214,40,40,.5);text-align:center;padding:0 20px;animation:shout-in .6s ease forwards;}
+@keyframes shout-in{0%{transform:scale(.3);opacity:0;}50%{transform:scale(1.15);opacity:1;}100%{transform:scale(1);opacity:1;}}
+
+/* PAGE */
 .page{position:relative;z-index:1;max-width:900px;margin:0 auto;padding:20px 16px 60px;}
 .week-section{margin-bottom:16px;border-radius:14px;border:1px solid rgba(255,255,255,.09);overflow:hidden;background:rgba(255,255,255,.03);}
 .week-section.current-week{border-color:var(--accent);}
@@ -53,7 +85,8 @@ body::before{content:'';position:fixed;inset:0;background-image:repeating-linear
 .day-name{font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--gray);}
 .day-date{font-family:'Barlow Condensed',sans-serif;font-size:9px;color:rgba(122,144,168,.55);}
 .tap-btn{width:52px;height:52px;border-radius:10px;border:2px solid rgba(255,255,255,.14);background:rgba(255,255,255,.04);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:700;color:#0c1520;transition:transform .15s,background .18s,border-color .18s;-webkit-tap-highlight-color:transparent;user-select:none;}
-.tap-btn.done{background:var(--green);border-color:var(--green-dark);color:#0c1520;}
+.tap-btn.done{background:var(--green);border-color:var(--green-dark);}
+.tap-btn.done-streak{background:#ff6b6b;border-color:#cc4444;}
 .tap-btn.locked-past{background:rgba(255,255,255,.02);border-color:rgba(255,255,255,.05);cursor:not-allowed;opacity:.3;color:transparent;}
 .tap-btn.locked-future{background:rgba(255,255,255,.015);border-color:rgba(255,255,255,.04);cursor:not-allowed;opacity:.18;color:transparent;}
 .tap-btn.today-btn{border-color:var(--accent);box-shadow:0 0 0 3px rgba(214,40,40,.3);}
@@ -73,33 +106,43 @@ body::before{content:'';position:fixed;inset:0;background-image:repeating-linear
 .ex-sets{font-size:10px;color:var(--gray);white-space:nowrap;flex-shrink:0;}
 .ex-cue{display:block;font-size:10px;color:var(--gray);font-style:italic;margin-top:1px;font-weight:400;}
 .carry-tag{font-size:9px;background:rgba(244,169,0,.2);color:var(--gold-light);border-radius:3px;padding:0 4px;margin-left:3px;font-weight:600;vertical-align:middle;white-space:nowrap;}
+/* SPEED DRILL IN WEEK */
+.speed-drill-row{padding:8px 16px 12px;border-top:1px solid rgba(91,170,240,.1);display:flex;align-items:center;gap:8px;}
+.speed-drill-icon{font-size:16px;}
+.speed-drill-info{flex:1;}
+.speed-drill-name{font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;color:#5baaf0;letter-spacing:.04em;}
+.speed-drill-desc{font-size:10px;color:var(--gray);font-style:italic;}
+.speed-drill-badge{font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:600;color:rgba(91,170,240,.5);white-space:nowrap;}
+
 .fw-container{position:fixed;inset:0;pointer-events:none;z-index:200;overflow:hidden;}
-.spark{position:absolute;width:7px;height:7px;border-radius:50%;animation:spark-fly .75s ease-out forwards;}
-@keyframes spark-fly{0%{transform:translate(0,0) scale(1);opacity:1;}100%{transform:translate(var(--dx),var(--dy)) scale(0);opacity:0;}}
+.spark{position:absolute;width:12px;height:12px;border-radius:50%;animation:spark-fly 2.5s ease-out forwards;}
+@keyframes spark-fly{0%{transform:translate(0,0) scale(1);opacity:1;}30%{opacity:1;transform:translate(calc(var(--dx)*.3),calc(var(--dy)*.3)) scale(1.3);}100%{transform:translate(var(--dx),var(--dy)) scale(0);opacity:0;}}
 .celebration{display:none;text-align:center;background:rgba(46,204,113,.08);border:1px solid var(--green);border-radius:14px;padding:20px;margin-bottom:20px;}
 .celebration.show{display:block;}
 .cel-text{font-family:'Bebas Neue',sans-serif;font-size:28px;color:var(--green);letter-spacing:.04em;}
 .cel-sub{font-family:'Barlow Condensed',sans-serif;font-size:14px;color:rgba(255,255,255,.5);margin-top:4px;}
-/* PIN PAD */
+/* PIN */
 .pin-section{margin-top:40px;border-top:1px solid rgba(255,255,255,.07);padding-top:24px;text-align:center;}
-.pin-label{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.2);margin-bottom:12px;}
-.pin-display{font-family:'Bebas Neue',sans-serif;font-size:32px;letter-spacing:.2em;color:rgba(255,255,255,.15);height:44px;margin-bottom:12px;transition:color .2s;}
+.pin-label{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.18);margin-bottom:12px;}
+.pin-display{font-family:'Bebas Neue',sans-serif;font-size:32px;letter-spacing:.2em;color:rgba(255,255,255,.12);height:44px;margin-bottom:12px;}
 .pin-display.active{color:var(--gold);}
 .pin-display.error{color:#e24b4a;}
 .pin-display.success{color:var(--green);}
 .pin-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;max-width:220px;margin:0 auto;}
-.pin-btn{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:10px;color:rgba(255,255,255,.4);font-family:'Bebas Neue',sans-serif;font-size:26px;padding:12px;cursor:pointer;transition:background .15s,color .15s,transform .1s;-webkit-tap-highlight-color:transparent;}
+.pin-btn{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:10px;color:rgba(255,255,255,.35);font-family:'Bebas Neue',sans-serif;font-size:26px;padding:12px;cursor:pointer;-webkit-tap-highlight-color:transparent;}
 .pin-btn:active{transform:scale(.9);background:rgba(255,255,255,.12);color:var(--white);}
-.pin-clear{grid-column:1;font-size:16px;font-family:'Barlow Condensed',sans-serif;font-weight:600;color:rgba(255,255,255,.3);}
-.pin-zero{grid-column:2;}
+.pin-clear{font-size:16px;font-family:'Barlow Condensed',sans-serif;font-weight:600;color:rgba(255,255,255,.25);}
+#pin-msg{font-family:'Barlow Condensed',sans-serif;font-size:12px;color:rgba(255,255,255,.25);margin-top:10px;min-height:18px;letter-spacing:.06em;}
 @keyframes pop{0%{transform:scale(1)}40%{transform:scale(1.2)}70%{transform:scale(.95)}100%{transform:scale(1)}}
 .pop{animation:pop .25s ease forwards;}
-.shake{animation:shake .35s ease forwards;}
 @keyframes shake{0%{transform:translateX(0)}20%{transform:translateX(-6px)}40%{transform:translateX(6px)}60%{transform:translateX(-4px)}80%{transform:translateX(4px)}100%{transform:translateX(0)}}
+.shake{animation:shake .35s ease forwards;}
 </style>
 </head>
 <body>
 <div class="fw-container" id="fw"></div>
+<div class="shout-overlay" id="shout"><div class="shout-text" id="shout-text"></div></div>
+
 <div class="sticky-header">
   <div class="hero-row">
     <div><div class="hero-name">Atley</div><div class="hero-meta">Age 9 &middot; Jun 1 &ndash; Aug 23 &middot; 3-5 lb Dumbbells</div></div>
@@ -117,344 +160,388 @@ body::before{content:'';position:fixed;inset:0;background-image:repeating-linear
         </div>
       </div>
     </div>
+    <div class="stat-card streak-card">
+      <div class="stat-num" id="hdr-streak">0</div>
+      <div class="stat-lbl">Streak</div>
+      <div class="streak-bonus" id="streak-bonus"></div>
+    </div>
     <div class="stat-card"><div class="stat-num" id="hdr-pct">0%</div><div class="stat-lbl">Complete</div></div>
-    <div class="bucket-card">
-      <div style="display:flex;gap:6px;"><button class="bucket-btn" onclick="logBucket(this)">&#9918; +5</button><button class="bucket-btn" style="background:rgba(255,255,255,.15);color:var(--gray);font-size:10px;" onclick="undoBucket(this)">&#8722;5</button></div>
-      <div class="bucket-stat" id="bucket-stat">0 buckets &middot; 0&#11088;</div>
+  </div>
+  <div class="bonus-row">
+    <div class="bonus-card">
+      <div class="bonus-btns"><button class="bonus-btn bonus-plus" onclick="addBonus('bucket',5,this)">&#9918;+5</button><button class="bonus-btn bonus-minus" onclick="removeBonus('bucket',5,this)">&#8722;5</button></div>
+      <div class="bonus-info"><div class="bonus-name">Bucket of Balls</div><div class="bonus-stat" id="bucket-stat">0 &middot; 0&#11088;</div></div>
+    </div>
+    <div class="bonus-card speed-card">
+      <div class="bonus-btns"><button class="bonus-btn speed-btn-plus" onclick="addBonus('speed',2,this)">&#9889;+2</button><button class="bonus-btn bonus-minus" onclick="removeBonus('speed',2,this)">&#8722;2</button></div>
+      <div class="bonus-info"><div class="bonus-name" id="speed-name">Speed Drill</div><div class="bonus-stat" id="speed-stat">0 &middot; 0&#11088;</div></div>
     </div>
   </div>
-  <div class="prog-label"><span>Summer progress</span><span id="hdr-prog-lbl">0 / 83 sessions</span></div>
-  <div class="prog-bar-wrap"><div class="prog-bar-fill" id="hdr-prog-fill" style="width:0%"></div></div>
+  <div class="dual-prog">
+    <div class="prog-labels">
+      <span class="prog-lbl-orange" id="orange-lbl">83 days left</span>
+      <span class="prog-lbl-green" id="green-lbl">0 sessions done</span>
+    </div>
+    <div class="dual-track">
+      <div class="fill-orange" id="fill-orange" style="width:0%"></div>
+      <div class="fill-green" id="fill-green" style="width:0%"></div>
+    </div>
+  </div>
 </div>
+
 <div class="page">
   <div id="celebration" class="celebration">
     <div style="font-size:40px;margin-bottom:6px;">&#127942;</div>
     <div class="cel-text">All 83 sessions complete!</div>
-    <div class="cel-sub">You went the whole summer, Atley. That&rsquo;s incredible.</div>
+    <div class="cel-sub">You went the whole summer, Atley. Incredible.</div>
   </div>
   <div id="weeks-container"></div>
-
-  <!-- PIN PAD -->
   <div class="pin-section">
-    <div class="pin-label">Parent reset &mdash; enter code</div>
-    <div class="pin-display" id="pin-display">&bull;&bull;&bull;&bull;</div>
+    <div class="pin-label">Parent reset</div>
+    <div class="pin-display" id="pin-display">&#8226;&#8226;&#8226;&#8226;</div>
     <div class="pin-grid">
-      <button class="pin-btn" onclick="pinPress('1')">1</button>
-      <button class="pin-btn" onclick="pinPress('2')">2</button>
-      <button class="pin-btn" onclick="pinPress('3')">3</button>
-      <button class="pin-btn" onclick="pinPress('4')">4</button>
-      <button class="pin-btn" onclick="pinPress('5')">5</button>
-      <button class="pin-btn" onclick="pinPress('6')">6</button>
-      <button class="pin-btn" onclick="pinPress('7')">7</button>
-      <button class="pin-btn" onclick="pinPress('8')">8</button>
-      <button class="pin-btn" onclick="pinPress('9')">9</button>
-      <button class="pin-btn pin-clear" onclick="pinClear()">CLR</button>
-      <button class="pin-btn pin-zero" onclick="pinPress('0')">0</button>
+      <button class="pin-btn" onclick="pinPress('1')">1</button><button class="pin-btn" onclick="pinPress('2')">2</button><button class="pin-btn" onclick="pinPress('3')">3</button>
+      <button class="pin-btn" onclick="pinPress('4')">4</button><button class="pin-btn" onclick="pinPress('5')">5</button><button class="pin-btn" onclick="pinPress('6')">6</button>
+      <button class="pin-btn" onclick="pinPress('7')">7</button><button class="pin-btn" onclick="pinPress('8')">8</button><button class="pin-btn" onclick="pinPress('9')">9</button>
+      <button class="pin-btn pin-clear" onclick="pinClear()">CLR</button><button class="pin-btn" onclick="pinPress('0')">0</button>
     </div>
-    <div id="pin-msg" style="font-family:'Barlow Condensed',sans-serif;font-size:12px;color:rgba(255,255,255,.3);margin-top:10px;min-height:18px;letter-spacing:.06em;"></div>
+    <div id="pin-msg"></div>
   </div>
 </div>
-<script>
-const KEY='atley_v4';
-const WEEKS=[{"label": "Week 1", "dates": "Jun 1\u20138", "start": "2026-06-01", "days": 7}, {"label": "Week 2", "dates": "Jun 9\u201315", "start": "2026-06-09", "days": 7}, {"label": "Week 3", "dates": "Jun 16\u201322", "start": "2026-06-16", "days": 7}, {"label": "Week 4", "dates": "Jun 23\u201329", "start": "2026-06-23", "days": 7}, {"label": "Week 5", "dates": "Jun 30\u2013Jul 6", "start": "2026-06-30", "days": 7}, {"label": "Week 6", "dates": "Jul 7\u201313", "start": "2026-07-07", "days": 7}, {"label": "Week 7", "dates": "Jul 14\u201320", "start": "2026-07-14", "days": 7}, {"label": "Week 8", "dates": "Jul 21\u201327", "start": "2026-07-21", "days": 7}, {"label": "Week 9", "dates": "Jul 28\u2013Aug 3", "start": "2026-07-28", "days": 7}, {"label": "Week 10", "dates": "Aug 4\u201310", "start": "2026-08-04", "days": 7}, {"label": "Week 11", "dates": "Aug 11\u201317", "start": "2026-08-11", "days": 7}, {"label": "Week 12", "dates": "Aug 18\u201323", "start": "2026-08-18", "days": 6}];
-const EXERCISES=[[{"name": "Bodyweight squat", "sets": "3\u00d78", "cue": "Sit back like there\u2019s a chair", "type": "move", "carry": false}, {"name": "Hip hinge (broomstick)", "sets": "10 reps", "cue": "Head, back, tailbone touch stick", "type": "move", "carry": false}, {"name": "Single-leg balance", "sets": "3\u00d710 sec", "cue": "Hold still \u2014 try eyes closed!", "type": "move", "carry": false}, {"name": "Standing trunk rotations", "sets": "2\u00d715", "cue": "Belly button spins side to side", "type": "power", "carry": false}, {"name": "Step-and-twist", "sets": "2\u00d78/side", "cue": "Step forward, rotate to front knee", "type": "power", "carry": false}, {"name": "Assisted pull-up", "sets": "3\u00d75", "cue": "Band or chair \u2014 chin clears bar", "type": "move", "carry": false}], [{"name": "Bodyweight squat", "sets": "3\u00d710", "cue": "Deeper each rep \u2014 slow down", "type": "move", "carry": true}, {"name": "Hip hinge (broomstick)", "sets": "12 reps", "cue": "Push hips back, not down", "type": "move", "carry": true}, {"name": "Reverse lunge", "sets": "3\u00d76/leg", "cue": "Step back, stay tall at top", "type": "move", "carry": false}, {"name": "Dead bug", "sets": "2\u00d76/side", "cue": "Opposite arm and leg, super slow", "type": "move", "carry": false}, {"name": "Step-and-twist", "sets": "3\u00d78/side", "cue": "Bigger rotation each time", "type": "power", "carry": true}, {"name": "Assisted pull-up", "sets": "3\u00d76", "cue": "Squeeze shoulder blades at top", "type": "move", "carry": true}], [{"name": "Goblet squat (DB)", "sets": "3\u00d78", "cue": "DB at chest, sit all the way back", "type": "move", "carry": false}, {"name": "Reverse lunge", "sets": "3\u00d78/leg", "cue": "Front knee tracks over toes", "type": "move", "carry": true}, {"name": "Dead bug", "sets": "3\u00d76/side", "cue": "Lower back flat on floor always", "type": "move", "carry": true}, {"name": "DB chest press into wall", "sets": "2\u00d78/side", "cue": "Stand sideways \u2014 hips drive first", "type": "power", "carry": false}, {"name": "Hip turn drill", "sets": "2\u00d710", "cue": "Feet planted, only hips spin", "type": "power", "carry": false}, {"name": "Assisted pull-up", "sets": "3\u00d76", "cue": "Control the way down \u2014 3 sec", "type": "move", "carry": false}], [{"name": "Goblet squat (DB)", "sets": "3\u00d710", "cue": "Pause at the bottom 2 sec", "type": "move", "carry": true}, {"name": "Hip turn drill", "sets": "3\u00d710", "cue": "Load back hip first, then fire", "type": "power", "carry": true}, {"name": "Single-leg RDL", "sets": "2\u00d76/leg", "cue": "Tip forward like a slow teapot", "type": "move", "carry": false}, {"name": "Plank hold", "sets": "3\u00d720 sec", "cue": "Squeeze everything \u2014 straight line", "type": "move", "carry": false}, {"name": "DB chest press into wall", "sets": "3\u00d78/side", "cue": "Hip-shoulder separation focus", "type": "power", "carry": true}, {"name": "Assisted pull-up", "sets": "3\u00d78", "cue": "Try with a little less help", "type": "move", "carry": false}], [{"name": "Single-leg RDL", "sets": "3\u00d76/leg", "cue": "Reach DB toward floor \u2014 control it", "type": "move", "carry": true}, {"name": "Plank\u2192shoulder taps", "sets": "3\u00d720 sec", "cue": "Don\u2019t let hips rock side to side", "type": "move", "carry": false}, {"name": "Half-kneeling DB press", "sets": "2\u00d78/side", "cue": "One knee down, press overhead slow", "type": "move", "carry": false}, {"name": "Pallof press (band)", "sets": "2\u00d78/side", "cue": "Press out and hold \u2014 resist the spin", "type": "power", "carry": false}, {"name": "Swing simulation w/ DB", "sets": "3\u00d76/side", "cue": "Load \u2192 hips \u2192 contact \u2192 finish \u2014 slow!", "type": "power", "carry": false}, {"name": "Assisted pull-up", "sets": "3\u00d78", "cue": "Pause 1 sec at the top", "type": "move", "carry": false}], [{"name": "Half-kneeling DB press", "sets": "3\u00d78/side", "cue": "Core tight \u2014 don\u2019t lean away", "type": "move", "carry": true}, {"name": "Pallof press (band)", "sets": "3\u00d78/side", "cue": "Slow press out \u2014 3 sec hold", "type": "power", "carry": true}, {"name": "Lateral lunge", "sets": "3\u00d76/side", "cue": "Big step sideways, sit into hip", "type": "move", "carry": false}, {"name": "Plank\u2192rotation", "sets": "2\u00d78/side", "cue": "Plank then reach arm to the sky", "type": "move", "carry": false}, {"name": "Swing simulation w/ DB", "sets": "3\u00d78/side", "cue": "Pick up pace slightly \u2014 stay controlled", "type": "power", "carry": true}, {"name": "Assisted pull-up", "sets": "4\u00d76", "cue": "Focus on the squeeze at the top", "type": "move", "carry": false}], [{"name": "Lateral lunge", "sets": "3\u00d78/side", "cue": "Add a DB hold for extra challenge", "type": "move", "carry": true}, {"name": "Plank\u2192rotation", "sets": "3\u00d78/side", "cue": "Hold the top position 2 sec", "type": "move", "carry": true}, {"name": "Goblet squat\u2192press", "sets": "3\u00d76", "cue": "Squat down, stand up, press DB up", "type": "move", "carry": false}, {"name": "Scoop toss simulation", "sets": "2\u00d78/side", "cue": "Drive hips, scoop DB upward", "type": "power", "carry": false}, {"name": "Swing simulation w/ DB", "sets": "3\u00d78/side", "cue": "Hips always beat shoulders to ball", "type": "power", "carry": true}, {"name": "Assisted pull-up", "sets": "4\u00d76", "cue": "Try one rep with less help", "type": "move", "carry": false}], [{"name": "Goblet squat\u2192press", "sets": "3\u00d78", "cue": "Fluid movement \u2014 no pause between", "type": "move", "carry": true}, {"name": "Scoop toss simulation", "sets": "3\u00d78/side", "cue": "Explosive hip pop, arms follow", "type": "power", "carry": true}, {"name": "Single-leg RDL", "sets": "3\u00d78/leg", "cue": "Reach further \u2014 feel the hamstring", "type": "move", "carry": false}, {"name": "Dead bug", "sets": "3\u00d78/side", "cue": "Breathe out as you extend", "type": "move", "carry": false}, {"name": "Full swing pattern review", "sets": "3\u00d76/side", "cue": "Connect all 4 phases \u2014 narrate each", "type": "power", "carry": false}, {"name": "Assisted pull-up", "sets": "4\u00d78", "cue": "Least assistance yet \u2014 you got this", "type": "move", "carry": false}], [{"name": "Full swing pattern review", "sets": "3\u00d78/side", "cue": "Speed it up \u2014 still controlled", "type": "power", "carry": true}, {"name": "Lateral lunge", "sets": "3\u00d78/side", "cue": "Explosive push off \u2014 snap back up", "type": "move", "carry": false}, {"name": "Half-kneeling DB press", "sets": "3\u00d710/side", "cue": "Heavier DB if form is solid", "type": "move", "carry": true}, {"name": "Pallof press (band)", "sets": "3\u00d710/side", "cue": "Hold position 4 sec each rep", "type": "power", "carry": false}, {"name": "Plank\u2192rotation", "sets": "3\u00d710/side", "cue": "Reach high \u2014 full rotation", "type": "move", "carry": true}, {"name": "Assisted pull-up", "sets": "4\u00d78", "cue": "Goal: 2 reps with no help", "type": "move", "carry": false}], [{"name": "Pallof press (band)", "sets": "3\u00d710/side", "cue": "Thicker band or step further away", "type": "power", "carry": true}, {"name": "Full swing pattern review", "sets": "4\u00d76/side", "cue": "Dad films one set \u2014 study it", "type": "power", "carry": false}, {"name": "Goblet squat\u2192press", "sets": "3\u00d710", "cue": "Add weight if last week felt easy", "type": "move", "carry": false}, {"name": "Scoop toss simulation", "sets": "3\u00d710/side", "cue": "Hip pop is everything \u2014 arms follow", "type": "power", "carry": true}, {"name": "Single-leg RDL", "sets": "3\u00d78/leg", "cue": "Slow down, feel every inch", "type": "move", "carry": false}, {"name": "Assisted pull-up", "sets": "4\u00d78", "cue": "Push for 3 reps with no help", "type": "move", "carry": false}], [{"name": "Goblet squat\u2192press", "sets": "4\u00d78", "cue": "Strongest week \u2014 show it", "type": "move", "carry": true}, {"name": "Scoop toss simulation", "sets": "4\u00d78/side", "cue": "Maximum hip speed \u2014 let it rip", "type": "power", "carry": false}, {"name": "Lateral lunge", "sets": "4\u00d78/side", "cue": "Drive hard off the planted foot", "type": "move", "carry": true}, {"name": "Full swing pattern review", "sets": "4\u00d78/side", "cue": "This is what summer built \u2014 own it", "type": "power", "carry": true}, {"name": "Plank\u2192rotation", "sets": "3\u00d710/side", "cue": "Strong and slow \u2014 last week of this", "type": "move", "carry": true}, {"name": "Assisted pull-up", "sets": "4\u00d78", "cue": "Push for 5 reps with no help", "type": "move", "carry": false}], [{"name": "Full swing pattern review", "sets": "3\u00d76/side", "cue": "Feel the whole summer in this swing", "type": "power", "carry": false}, {"name": "Goblet squat\u2192press", "sets": "3\u00d76", "cue": "Clean, controlled \u2014 celebrate your form", "type": "move", "carry": true}, {"name": "Scoop toss simulation", "sets": "3\u00d76/side", "cue": "Explosive but smooth \u2014 you earned this", "type": "power", "carry": true}, {"name": "Pallof press (band)", "sets": "3\u00d78/side", "cue": "Strong core \u2014 you built this all summer", "type": "power", "carry": false}, {"name": "Lateral lunge", "sets": "3\u00d76/side", "cue": "Final week \u2014 make every rep count", "type": "move", "carry": false}, {"name": "Assisted pull-up", "sets": "3\u00d76", "cue": "How many can you do without help now?", "type": "move", "carry": false}]];
-const DAY_NAMES=['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
-const TOTAL=83;
-const STARS_PER=13;
-const BUCKET_STARS=5;
-const COLORS=['#f4a900','#ffd166','#2ecc71','#5baaf0','#ff6b6b','#fff','#ff9f43'];
 
-/* ── LOCAL DATE (no UTC shift) ── */
-function todayStr(){
-  const n=new Date();
-  const y=n.getFullYear();
-  const m=String(n.getMonth()+1).padStart(2,'0');
-  const d=String(n.getDate()).padStart(2,'0');
-  return y+'-'+m+'-'+d;
-}
-function addDays(s,n){
-  const parts=s.split('-');
-  const d=new Date(+parts[0],+parts[1]-1,+parts[2],12,0,0);
-  d.setDate(d.getDate()+n);
-  const y=d.getFullYear();
-  const m=String(d.getMonth()+1).padStart(2,'0');
-  const dd=String(d.getDate()).padStart(2,'0');
-  return y+'-'+m+'-'+dd;
-}
-function fmtShort(s){
-  const parts=s.split('-');
-  const d=new Date(+parts[0],+parts[1]-1,+parts[2]);
-  return ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][d.getMonth()]+' '+d.getDate();
-}
+<script>
+var KEY='atley_v4';
+var WEEKS=[{"label": "Week 1", "dates": "Jun 1\u20138", "start": "2026-06-01", "days": 7}, {"label": "Week 2", "dates": "Jun 9\u201315", "start": "2026-06-09", "days": 7}, {"label": "Week 3", "dates": "Jun 16\u201322", "start": "2026-06-16", "days": 7}, {"label": "Week 4", "dates": "Jun 23\u201329", "start": "2026-06-23", "days": 7}, {"label": "Week 5", "dates": "Jun 30\u2013Jul 6", "start": "2026-06-30", "days": 7}, {"label": "Week 6", "dates": "Jul 7\u201313", "start": "2026-07-07", "days": 7}, {"label": "Week 7", "dates": "Jul 14\u201320", "start": "2026-07-14", "days": 7}, {"label": "Week 8", "dates": "Jul 21\u201327", "start": "2026-07-21", "days": 7}, {"label": "Week 9", "dates": "Jul 28\u2013Aug 3", "start": "2026-07-28", "days": 7}, {"label": "Week 10", "dates": "Aug 4\u201310", "start": "2026-08-04", "days": 7}, {"label": "Week 11", "dates": "Aug 11\u201317", "start": "2026-08-11", "days": 7}, {"label": "Week 12", "dates": "Aug 18\u201323", "start": "2026-08-18", "days": 6}];
+var EXERCISES=[[{"name": "Bodyweight squat", "sets": "3\u00d78", "cue": "Sit back like there\u2019s a chair", "type": "move", "carry": false}, {"name": "Hip hinge (broomstick)", "sets": "10 reps", "cue": "Head, back, tailbone touch stick", "type": "move", "carry": false}, {"name": "Single-leg balance", "sets": "3\u00d710 sec", "cue": "Hold still \u2014 try eyes closed!", "type": "move", "carry": false}, {"name": "Standing trunk rotations", "sets": "2\u00d715", "cue": "Belly button spins side to side", "type": "power", "carry": false}, {"name": "Step-and-twist", "sets": "2\u00d78/side", "cue": "Step forward, rotate to front knee", "type": "power", "carry": false}, {"name": "Assisted pull-up", "sets": "3\u00d75", "cue": "Band or chair \u2014 chin clears bar", "type": "move", "carry": false}], [{"name": "Bodyweight squat", "sets": "3\u00d710", "cue": "Deeper each rep \u2014 slow down", "type": "move", "carry": true}, {"name": "Hip hinge (broomstick)", "sets": "12 reps", "cue": "Push hips back, not down", "type": "move", "carry": true}, {"name": "Reverse lunge", "sets": "3\u00d76/leg", "cue": "Step back, stay tall at top", "type": "move", "carry": false}, {"name": "Dead bug", "sets": "2\u00d76/side", "cue": "Opposite arm and leg, super slow", "type": "move", "carry": false}, {"name": "Step-and-twist", "sets": "3\u00d78/side", "cue": "Bigger rotation each time", "type": "power", "carry": true}, {"name": "Assisted pull-up", "sets": "3\u00d76", "cue": "Squeeze shoulder blades at top", "type": "move", "carry": true}], [{"name": "Goblet squat (DB)", "sets": "3\u00d78", "cue": "DB at chest, sit all the way back", "type": "move", "carry": false}, {"name": "Reverse lunge", "sets": "3\u00d78/leg", "cue": "Front knee tracks over toes", "type": "move", "carry": true}, {"name": "Dead bug", "sets": "3\u00d76/side", "cue": "Lower back flat on floor always", "type": "move", "carry": true}, {"name": "DB chest press into wall", "sets": "2\u00d78/side", "cue": "Stand sideways \u2014 hips drive first", "type": "power", "carry": false}, {"name": "Hip turn drill", "sets": "2\u00d710", "cue": "Feet planted, only hips spin", "type": "power", "carry": false}, {"name": "Assisted pull-up", "sets": "3\u00d76", "cue": "Control the way down \u2014 3 sec", "type": "move", "carry": false}], [{"name": "Goblet squat (DB)", "sets": "3\u00d710", "cue": "Pause at the bottom 2 sec", "type": "move", "carry": true}, {"name": "Hip turn drill", "sets": "3\u00d710", "cue": "Load back hip first, then fire", "type": "power", "carry": true}, {"name": "Single-leg RDL", "sets": "2\u00d76/leg", "cue": "Tip forward like a slow teapot", "type": "move", "carry": false}, {"name": "Plank hold", "sets": "3\u00d720 sec", "cue": "Squeeze everything \u2014 straight line", "type": "move", "carry": false}, {"name": "DB chest press into wall", "sets": "3\u00d78/side", "cue": "Hip-shoulder separation focus", "type": "power", "carry": true}, {"name": "Assisted pull-up", "sets": "3\u00d78", "cue": "Try with a little less help", "type": "move", "carry": false}], [{"name": "Single-leg RDL", "sets": "3\u00d76/leg", "cue": "Reach DB toward floor \u2014 control it", "type": "move", "carry": true}, {"name": "Plank\u2192shoulder taps", "sets": "3\u00d720 sec", "cue": "Don\u2019t let hips rock side to side", "type": "move", "carry": false}, {"name": "Half-kneeling DB press", "sets": "2\u00d78/side", "cue": "One knee down, press overhead slow", "type": "move", "carry": false}, {"name": "Pallof press (band)", "sets": "2\u00d78/side", "cue": "Press out and hold \u2014 resist the spin", "type": "power", "carry": false}, {"name": "Swing simulation w/ DB", "sets": "3\u00d76/side", "cue": "Load \u2192 hips \u2192 contact \u2192 finish \u2014 slow!", "type": "power", "carry": false}, {"name": "Assisted pull-up", "sets": "3\u00d78", "cue": "Pause 1 sec at the top", "type": "move", "carry": false}], [{"name": "Half-kneeling DB press", "sets": "3\u00d78/side", "cue": "Core tight \u2014 don\u2019t lean away", "type": "move", "carry": true}, {"name": "Pallof press (band)", "sets": "3\u00d78/side", "cue": "Slow press out \u2014 3 sec hold", "type": "power", "carry": true}, {"name": "Lateral lunge", "sets": "3\u00d76/side", "cue": "Big step sideways, sit into hip", "type": "move", "carry": false}, {"name": "Plank\u2192rotation", "sets": "2\u00d78/side", "cue": "Plank then reach arm to the sky", "type": "move", "carry": false}, {"name": "Swing simulation w/ DB", "sets": "3\u00d78/side", "cue": "Pick up pace slightly \u2014 stay controlled", "type": "power", "carry": true}, {"name": "Assisted pull-up", "sets": "4\u00d76", "cue": "Focus on the squeeze at the top", "type": "move", "carry": false}], [{"name": "Lateral lunge", "sets": "3\u00d78/side", "cue": "Add a DB hold for extra challenge", "type": "move", "carry": true}, {"name": "Plank\u2192rotation", "sets": "3\u00d78/side", "cue": "Hold the top position 2 sec", "type": "move", "carry": true}, {"name": "Goblet squat\u2192press", "sets": "3\u00d76", "cue": "Squat down, stand up, press DB up", "type": "move", "carry": false}, {"name": "Scoop toss simulation", "sets": "2\u00d78/side", "cue": "Drive hips, scoop DB upward", "type": "power", "carry": false}, {"name": "Swing simulation w/ DB", "sets": "3\u00d78/side", "cue": "Hips always beat shoulders to ball", "type": "power", "carry": true}, {"name": "Assisted pull-up", "sets": "4\u00d76", "cue": "Try one rep with less help", "type": "move", "carry": false}], [{"name": "Goblet squat\u2192press", "sets": "3\u00d78", "cue": "Fluid movement \u2014 no pause between", "type": "move", "carry": true}, {"name": "Scoop toss simulation", "sets": "3\u00d78/side", "cue": "Explosive hip pop, arms follow", "type": "power", "carry": true}, {"name": "Single-leg RDL", "sets": "3\u00d78/leg", "cue": "Reach further \u2014 feel the hamstring", "type": "move", "carry": false}, {"name": "Dead bug", "sets": "3\u00d78/side", "cue": "Breathe out as you extend", "type": "move", "carry": false}, {"name": "Full swing pattern review", "sets": "3\u00d76/side", "cue": "Connect all 4 phases \u2014 narrate each", "type": "power", "carry": false}, {"name": "Assisted pull-up", "sets": "4\u00d78", "cue": "Least assistance yet \u2014 you got this", "type": "move", "carry": false}], [{"name": "Full swing pattern review", "sets": "3\u00d78/side", "cue": "Speed it up \u2014 still controlled", "type": "power", "carry": true}, {"name": "Lateral lunge", "sets": "3\u00d78/side", "cue": "Explosive push off \u2014 snap back up", "type": "move", "carry": false}, {"name": "Half-kneeling DB press", "sets": "3\u00d710/side", "cue": "Heavier DB if form is solid", "type": "move", "carry": true}, {"name": "Pallof press (band)", "sets": "3\u00d710/side", "cue": "Hold position 4 sec each rep", "type": "power", "carry": false}, {"name": "Plank\u2192rotation", "sets": "3\u00d710/side", "cue": "Reach high \u2014 full rotation", "type": "move", "carry": true}, {"name": "Assisted pull-up", "sets": "4\u00d78", "cue": "Goal: 2 reps with no help", "type": "move", "carry": false}], [{"name": "Pallof press (band)", "sets": "3\u00d710/side", "cue": "Thicker band or step further away", "type": "power", "carry": true}, {"name": "Full swing pattern review", "sets": "4\u00d76/side", "cue": "Dad films one set \u2014 study it", "type": "power", "carry": false}, {"name": "Goblet squat\u2192press", "sets": "3\u00d710", "cue": "Add weight if last week felt easy", "type": "move", "carry": false}, {"name": "Scoop toss simulation", "sets": "3\u00d710/side", "cue": "Hip pop is everything \u2014 arms follow", "type": "power", "carry": true}, {"name": "Single-leg RDL", "sets": "3\u00d78/leg", "cue": "Slow down, feel every inch", "type": "move", "carry": false}, {"name": "Assisted pull-up", "sets": "4\u00d78", "cue": "Push for 3 reps with no help", "type": "move", "carry": false}], [{"name": "Goblet squat\u2192press", "sets": "4\u00d78", "cue": "Strongest week \u2014 show it", "type": "move", "carry": true}, {"name": "Scoop toss simulation", "sets": "4\u00d78/side", "cue": "Maximum hip speed \u2014 let it rip", "type": "power", "carry": false}, {"name": "Lateral lunge", "sets": "4\u00d78/side", "cue": "Drive hard off the planted foot", "type": "move", "carry": true}, {"name": "Full swing pattern review", "sets": "4\u00d78/side", "cue": "This is what summer built \u2014 own it", "type": "power", "carry": true}, {"name": "Plank\u2192rotation", "sets": "3\u00d710/side", "cue": "Strong and slow \u2014 last week of this", "type": "move", "carry": true}, {"name": "Assisted pull-up", "sets": "4\u00d78", "cue": "Push for 5 reps with no help", "type": "move", "carry": false}], [{"name": "Full swing pattern review", "sets": "3\u00d76/side", "cue": "Feel the whole summer in this swing", "type": "power", "carry": false}, {"name": "Goblet squat\u2192press", "sets": "3\u00d76", "cue": "Clean, controlled \u2014 celebrate your form", "type": "move", "carry": true}, {"name": "Scoop toss simulation", "sets": "3\u00d76/side", "cue": "Explosive but smooth \u2014 you earned this", "type": "power", "carry": true}, {"name": "Pallof press (band)", "sets": "3\u00d78/side", "cue": "Strong core \u2014 you built this all summer", "type": "power", "carry": false}, {"name": "Lateral lunge", "sets": "3\u00d76/side", "cue": "Final week \u2014 make every rep count", "type": "move", "carry": false}, {"name": "Assisted pull-up", "sets": "3\u00d76", "cue": "How many can you do without help now?", "type": "move", "carry": false}]];
+var WEEK_ENDS=["2026-06-08", "2026-06-15", "2026-06-22", "2026-06-29", "2026-07-06", "2026-07-13", "2026-07-20", "2026-07-27", "2026-08-03", "2026-08-10", "2026-08-17", "2026-08-23"];
+var SPEED_DRILLS=[{"name": "20-yard dash", "desc": "Sprint 20 yards, walk back, repeat 3 times", "icon": "\u26a1"}, {"name": "5-10-5 shuttle", "desc": "Sprint 5 yds right, 10 yds left, 5 yds right", "icon": "\u26a1"}, {"name": "Ladder feet", "desc": "Quick feet through imaginary ladder \u2014 10 reps", "icon": "\u26a1"}, {"name": "Cone weave sprint", "desc": "Set 5 cones, weave through and sprint back", "icon": "\u26a1"}, {"name": "Base running drill", "desc": "Home to 1st all-out, walk to 2nd, repeat 3x", "icon": "\u26a1"}, {"name": "Backpedal-to-sprint", "desc": "Backpedal 10 yds, flip hips and sprint 20 yds \u00d73", "icon": "\u26a1"}, {"name": "Lateral shuffle sprint", "desc": "Shuffle 10 yds, sprint 20 yds \u2014 3 each side", "icon": "\u26a1"}, {"name": "T-drill", "desc": "Sprint to cone, shuffle left, shuffle right, backpedal", "icon": "\u26a1"}, {"name": "Broad jump sprints", "desc": "3 broad jumps then sprint 15 yds \u00d73", "icon": "\u26a1"}, {"name": "Star drill", "desc": "5 cones in a star \u2014 sprint to each and back to center", "icon": "\u26a1"}, {"name": "Zigzag sprint", "desc": "Set cones in zigzag, cut hard at each one \u00d73", "icon": "\u26a1"}, {"name": "Home-to-first challenge", "desc": "Time yourself! Beat your best 3 times", "icon": "\u26a1"}];
+var DAY_NAMES=['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+var TOTAL=83;
+var STARS_PER=13;
+var STREAK_STARS=20;
+var NAME='Atley';
+var SUMMER_START='2026-06-01';
+var SUMMER_END='2026-08-23';
+var COLORS=['#f4a900','#ffd166','#2ecc71','#5baaf0','#ff6b6b','#fff','#ff9f43'];
+
+/* Day-of-week encouragement (Mon=0..Sun=6), fixed per day */
+var SHOUTS=[
+  "Let\u2019s start the week strong, "+NAME+"!",
+  "Way to go, "+NAME+"!",
+  "Great job, "+NAME+"!",
+  "Keep it rolling, "+NAME+"!",
+  "Friday grind, "+NAME+"! Let\u2019s go!",
+  "Weekend warrior, "+NAME+"!",
+  "Full send, "+NAME+"!"
+];
+
+function todayStr(){var n=new Date();return n.getFullYear()+'-'+String(n.getMonth()+1).padStart(2,'0')+'-'+String(n.getDate()).padStart(2,'0');}
+function addDays(s,n){var p=s.split('-');var d=new Date(+p[0],+p[1]-1,+p[2],12,0,0);d.setDate(d.getDate()+n);return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
+function fmtShort(s){var p=s.split('-');var d=new Date(+p[0],+p[1]-1,+p[2],12,0,0);return ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][d.getMonth()]+' '+d.getDate();}
+function daysBetween(a,b){var d1=new Date(+a.split('-')[0],+a.split('-')[1]-1,+a.split('-')[2],12,0,0);var d2=new Date(+b.split('-')[0],+b.split('-')[1]-1,+b.split('-')[2],12,0,0);return Math.round((d2-d1)/86400000);}
 function dayKey(w,d){return 'w'+w+'d'+d;}
 function loadState(){try{return JSON.parse(localStorage.getItem(KEY))||{};}catch(e){return {};}}
 function saveState(s){try{localStorage.setItem(KEY,JSON.stringify(s));}catch(e){}}
-let state=loadState();
+var state=loadState();
 
 function currentWeekIdx(){
-  const t=todayStr();
-  /* precomputed end dates to avoid addDays timezone issues */
-  const ENDS=['2026-06-08','2026-06-15','2026-06-22','2026-06-29','2026-07-06','2026-07-13','2026-07-20','2026-07-27','2026-08-03','2026-08-10','2026-08-17','2026-08-23'];
-  for(let w=0;w<WEEKS.length;w++){
-    if(t>=WEEKS[w].start && t<=ENDS[w]) return w;
-  }
-  return t<WEEKS[0].start ? 0 : WEEKS.length-1;
+  var t=todayStr();
+  for(var w=0;w<WEEKS.length;w++){if(t>=WEEKS[w].start&&t<=WEEK_ENDS[w])return w;}
+  return t<WEEKS[0].start?0:WEEKS.length-1;
 }
 
-/* ── FIREWORKS ── */
+/* STREAK CALC: count consecutive days ending at yesterday or today that have checks */
+function calcStreak(){
+  var t=todayStr();
+  var streak=0;
+  var checkDate=t;
+  /* start from today, go backwards */
+  while(true){
+    var found=false;
+    for(var w=0;w<WEEKS.length;w++){
+      for(var d=0;d<WEEKS[w].days;d++){
+        if(addDays(WEEKS[w].start,d)===checkDate&&state[dayKey(w,d)]){found=true;break;}
+      }
+      if(found)break;
+    }
+    if(!found)break;
+    streak++;
+    checkDate=addDays(checkDate,-1);
+    if(checkDate<SUMMER_START)break;
+  }
+  return streak;
+}
+function isStreakDay(w,d){
+  /* A day gets streak bonus (20 stars) if the streak at that point was >=4 */
+  var dateStr=addDays(WEEKS[w].start,d);
+  if(!state[dayKey(w,d)])return false;
+  /* count consecutive days ending at dateStr */
+  var streak=0;var cd=dateStr;
+  while(true){
+    var found=false;
+    for(var ww=0;ww<WEEKS.length;ww++){
+      for(var dd=0;dd<WEEKS[ww].days;dd++){
+        if(addDays(WEEKS[ww].start,dd)===cd&&state[dayKey(ww,dd)]){found=true;break;}
+      }
+      if(found)break;
+    }
+    if(!found)break;
+    streak++;cd=addDays(cd,-1);
+    if(cd<SUMMER_START)break;
+  }
+  return streak>=4;
+}
+
+/* FIREWORKS */
 function fireworks(el){
-  const r=el.getBoundingClientRect();
-  const cx=r.left+r.width/2, cy=r.top+r.height/2;
-  const c=document.getElementById('fw');
-  for(let i=0;i<22;i++){
-    const s=document.createElement('div');
-    s.className='spark';
-    const a=Math.random()*Math.PI*2;
-    const dist=60+Math.random()*100;
+  var r=el.getBoundingClientRect();var cx=r.left+r.width/2,cy=r.top+r.height/2;
+  var c=document.getElementById('fw');
+  for(var i=0;i<70;i++){
+    var s=document.createElement('div');s.className='spark';
+    var a=Math.random()*Math.PI*2,dist=120+Math.random()*350;
     s.style.left=cx+'px';s.style.top=cy+'px';
     s.style.background=COLORS[Math.floor(Math.random()*COLORS.length)];
     s.style.setProperty('--dx',Math.cos(a)*dist+'px');
-    s.style.setProperty('--dy',(Math.sin(a)*dist-30)+'px');
-    s.style.animationDelay=Math.random()*.15+'s';
-    s.style.animationDuration=(.55+Math.random()*.45)+'s';
-    c.appendChild(s);
-    s.addEventListener('animationend',()=>s.remove());
+    s.style.setProperty('--dy',(Math.sin(a)*dist-80)+'px');
+    s.style.animationDelay=Math.random()*.6+'s';
+    s.style.animationDuration=(1.5+Math.random()*2)+'s';
+    c.appendChild(s);s.addEventListener('animationend',function(){this.remove();});
   }
+  setTimeout(function(){
+    for(var j=0;j<45;j++){
+      var s2=document.createElement('div');s2.className='spark';
+      var a2=Math.random()*Math.PI*2,d2=100+Math.random()*320;
+      s2.style.left=cx+'px';s2.style.top=cy+'px';
+      s2.style.background=COLORS[Math.floor(Math.random()*COLORS.length)];
+      s2.style.setProperty('--dx',Math.cos(a2)*d2+'px');
+      s2.style.setProperty('--dy',(Math.sin(a2)*d2-100)+'px');
+      s2.style.animationDelay=Math.random()*.4+'s';
+      s2.style.animationDuration=(1.2+Math.random()*1.8)+'s';
+      c.appendChild(s2);s2.addEventListener('animationend',function(){this.remove();});
+    }
+  },700);
+  setTimeout(function(){
+    for(var k=0;k<30;k++){
+      var s3=document.createElement('div');s3.className='spark';
+      var a3=Math.random()*Math.PI*2,d3=80+Math.random()*280;
+      s3.style.left=cx+'px';s3.style.top=cy+'px';
+      s3.style.background=COLORS[Math.floor(Math.random()*COLORS.length)];
+      s3.style.setProperty('--dx',Math.cos(a3)*d3+'px');
+      s3.style.setProperty('--dy',(Math.sin(a3)*d3-120)+'px');
+      s3.style.animationDelay=Math.random()*.3+'s';
+      s3.style.animationDuration=(1+Math.random()*1.5)+'s';
+      c.appendChild(s3);s3.addEventListener('animationend',function(){this.remove();});
+    }
+  },1500);
 }
 
-/* ── TOGGLE ── */
+/* SHOUT */
+function showShout(dayIdx){
+  var overlay=document.getElementById('shout');
+  var txt=document.getElementById('shout-text');
+  txt.textContent=SHOUTS[dayIdx]||SHOUTS[0];
+  overlay.classList.add('show');
+  txt.style.animation='none';
+  void txt.offsetWidth;
+  txt.style.animation='shout-in .6s ease forwards';
+  setTimeout(function(){overlay.classList.remove('show');},2500);
+}
+
+/* TOGGLE */
 function toggle(w,d,el){
-  const today=todayStr();
-  const dateStr=addDays(WEEKS[w].start,d);
-  /* only allow today or earlier days in current/past weeks */
-  if(dateStr!==today) return;
-  const k=dayKey(w,d);
+  var today=todayStr();
+  var dateStr=addDays(WEEKS[w].start,d);
+  if(dateStr!==today)return;
+  var k=dayKey(w,d);
   state[k]=!state[k];
   saveState(state);
   if(state[k]){
-    el.classList.add('done');
-    el.textContent='✓';
-    el.classList.add('pop');
-    el.addEventListener('animationend',()=>el.classList.remove('pop'),{once:true});
+    el.classList.add('done');el.textContent='\u2713';
+    el.classList.add('pop');el.addEventListener('animationend',function(){el.classList.remove('pop');},{once:true});
     fireworks(el);
-  } else {
-    el.classList.remove('done');
-    el.textContent='';
+    showShout(d);
+  }else{
+    el.classList.remove('done','done-streak');el.textContent='';
   }
   updateAll();
 }
 
-/* ── BUCKET ── */
-function logBucket(btn){
-  state._buckets=(state._buckets||0)+1;
-  saveState(state);
-  btn.classList.add('pop');
-  btn.addEventListener('animationend',()=>btn.classList.remove('pop'),{once:true});
-  fireworks(btn);
+/* BONUS */
+function addBonus(type,pts,btn){
+  state['_'+type]=(state['_'+type]||0)+1;saveState(state);
+  btn.classList.add('pop');btn.addEventListener('animationend',function(){btn.classList.remove('pop');},{once:true});
+  fireworks(btn);updateAll();
+}
+function removeBonus(type,pts,btn){
+  if(!state['_'+type]||state['_'+type]<=0)return;
+  state['_'+type]--;saveState(state);
+  btn.classList.add('pop');btn.addEventListener('animationend',function(){btn.classList.remove('pop');},{once:true});
   updateAll();
 }
 
-
-/* __ UNDO BUCKET __ */
-function undoBucket(btn){
-  if(!state._buckets||state._buckets<=0) return;
-  state._buckets=state._buckets-1;
-  saveState(state);
-  btn.classList.add('pop');
-  btn.addEventListener('animationend',function(){btn.classList.remove('pop')},{once:true});
-  updateAll();
-}
-
-/* ── UPDATE STATS ── */
+/* UPDATE */
 function updateAll(){
-  const cwi=currentWeekIdx();
-  let totalDone=0,wkSessionsDone=0,totalStars=0,wkStars=0;
-  const buckets=state._buckets||0;
-  for(let w=0;w<WEEKS.length;w++){
-    let wd=0;
-    for(let d=0;d<WEEKS[w].days;d++){
+  var cwi=currentWeekIdx();
+  var today=todayStr();
+  var totalDone=0,wkStars=0,totalStars=0;
+  var buckets=state._bucket||0,speeds=state._speed||0;
+  for(var w=0;w<WEEKS.length;w++){
+    var wd=0;var wStars=0;
+    for(var d=0;d<WEEKS[w].days;d++){
       if(state[dayKey(w,d)]){
-        wd++;totalDone++;totalStars+=STARS_PER;
-        if(w===cwi){wkSessionsDone++;wkStars+=STARS_PER;}
+        wd++;totalDone++;
+        var pts=isStreakDay(w,d)?STREAK_STARS:STARS_PER;
+        totalStars+=pts;
+        wStars+=pts;
+        if(w===cwi)wkStars+=pts;
+        /* color streak buttons */
+        var btn=document.getElementById('btn-'+w+'-'+d);
+        if(btn){
+          if(isStreakDay(w,d))btn.classList.add('done-streak');
+          else btn.classList.remove('done-streak');
+        }
       }
     }
-    const pf=document.getElementById('wpf-'+w);
-    if(pf) pf.style.width=Math.round(wd/WEEKS[w].days*100)+'%';
-    const wsb=document.getElementById('wsb-'+w);
-    if(wsb) wsb.textContent=wd*STARS_PER+' ⭐';
-    const wdb=document.getElementById('wdb-'+w);
-    if(wdb) wdb.style.display=wd===WEEKS[w].days?'inline':'none';
+    var pf=document.getElementById('wpf-'+w);
+    if(pf)pf.style.width=Math.round(wd/WEEKS[w].days*100)+'%';
+    var wsb=document.getElementById('wsb-'+w);
+    if(wsb)wsb.textContent=wStars+' \u2b50';
+    var wdb=document.getElementById('wdb-'+w);
+    if(wdb)wdb.style.display=wd===WEEKS[w].days?'inline':'none';
   }
-  const bonus=buckets*BUCKET_STARS;
-  totalStars+=bonus; wkStars+=bonus;
-  const pct=Math.round(totalDone/TOTAL*100);
+  var bonusStars=buckets*5+speeds*2;
+  totalStars+=bonusStars;wkStars+=bonusStars;
+  var streak=calcStreak();
+  var pct=Math.round(totalDone/TOTAL*100);
   document.getElementById('hdr-done').textContent=totalDone;
   document.getElementById('hdr-wk-stars').textContent=wkStars;
   document.getElementById('hdr-tot-stars').textContent=totalStars;
+  document.getElementById('hdr-streak').textContent=streak;
+  document.getElementById('streak-bonus').textContent=streak>=3?'\u26a1 1.5x next!':'';
   document.getElementById('hdr-pct').textContent=pct+'%';
-  document.getElementById('hdr-prog-fill').style.width=pct+'%';
-  document.getElementById('hdr-prog-lbl').textContent=totalDone+' / '+TOTAL+' sessions';
-  document.getElementById('bucket-stat').textContent=buckets+' bucket'+(buckets!==1?'s':'')+' · '+bonus+'⭐';
+  document.getElementById('bucket-stat').textContent=buckets+' \u00b7 '+(buckets*5)+'\u2b50';
+  document.getElementById('speed-stat').textContent=speeds+' \u00b7 '+(speeds*2)+'\u2b50';
+  /* speed drill name for this week */
+  var sd=SPEED_DRILLS[cwi]||SPEED_DRILLS[0];
+  document.getElementById('speed-name').textContent=sd.icon+' '+sd.name;
+  /* dual progress bar */
+  var daysElapsed=daysBetween(SUMMER_START,today)+1;
+  if(daysElapsed<0)daysElapsed=0;
+  var totalSummerDays=daysBetween(SUMMER_START,SUMMER_END)+1;
+  var orangePct=Math.min(100,Math.round(daysElapsed/totalSummerDays*100));
+  var greenPct=Math.round(totalDone/TOTAL*100);
+  document.getElementById('fill-orange').style.width=orangePct+'%';
+  document.getElementById('fill-green').style.width=greenPct+'%';
+  document.getElementById('orange-lbl').textContent=(totalSummerDays-daysElapsed)+' days left';
+  document.getElementById('green-lbl').textContent=totalDone+' sessions done';
   document.getElementById('celebration').classList.toggle('show',totalDone===TOTAL);
 }
 
-/* ── BUILD WEEKS ── */
+/* BUILD */
 function buildWeeks(){
-  const container=document.getElementById('weeks-container');
-  const today=todayStr();
-  const cwi=currentWeekIdx();
-  WEEKS.forEach((wk,w)=>{
-    const isCurrent=w===cwi;
-    let wd=0;
-    for(let d=0;d<wk.days;d++) if(state[dayKey(w,d)]) wd++;
-    const sec=document.createElement('div');
+  var container=document.getElementById('weeks-container');
+  var today=todayStr();var cwi=currentWeekIdx();
+  WEEKS.forEach(function(wk,w){
+    var isCurrent=w===cwi;
+    var wd=0;for(var d=0;d<wk.days;d++)if(state[dayKey(w,d)])wd++;
+    var sec=document.createElement('div');
     sec.className='week-section'+(isCurrent?' current-week':'');
     sec.id='week-'+w;
-    const hdr=document.createElement('div');
-    hdr.className='week-header';
+    var hdr=document.createElement('div');hdr.className='week-header';
     hdr.innerHTML='<div><div class="week-label-big">'+wk.label+'</div><div class="week-dates">'+wk.dates+'</div></div>'
       +(isCurrent?'<span class="week-now-badge">This week</span>':'')
-      +'<span class="week-stars-badge" id="wsb-'+w+'">'+wd*STARS_PER+' &#11088;</span>'
-      +'<span class="week-done-badge" id="wdb-'+w+'" style="display:'+(wd===wk.days?'inline':'none')+'">&#10003; Done</span>';
+      +'<span class="week-stars-badge" id="wsb-'+w+'">0 &#11088;</span>'
+      +'<span class="week-done-badge" id="wdb-'+w+'" style="display:none">&#10003; Done</span>';
     sec.appendChild(hdr);
-    const grid=document.createElement('div');
-    grid.className='days-grid';
-    for(let d=0;d<wk.days;d++){
-      const dateStr=addDays(wk.start,d);
-      const isPast=dateStr<today;
-      const isToday=dateStr===today;
-      const isFuture=dateStr>today;
-      const isDone=!!state[dayKey(w,d)];
-      let cls='tap-btn';
-      if(isDone) cls+=' done';
-      else if(isPast) cls+=' locked-past';
-      else if(isFuture) cls+=' locked-future';
-      if(isToday && !isDone) cls+=' today-btn';
-      const box=document.createElement('div');
-      box.className='day-box';
-      const btnText=isDone?'✓':'';
-      box.innerHTML='<div class="day-name">'+DAY_NAMES[d]+'</div>'
-        +'<div class="day-date">'+fmtShort(dateStr)+'</div>'
-        +'<button class="'+cls+'" id="btn-'+w+'-'+d+'" onclick="toggle('+w+','+d+',this)" aria-label="'+wk.label+' '+DAY_NAMES[d]+'">'+btnText+'</button>';
+    var grid=document.createElement('div');grid.className='days-grid';
+    for(var d=0;d<wk.days;d++){
+      var dateStr=addDays(wk.start,d);
+      var isPast=dateStr<today,isToday=dateStr===today,isFuture=dateStr>today;
+      var isDone=!!state[dayKey(w,d)];
+      var cls='tap-btn';
+      if(isDone)cls+=' done';
+      else if(isPast)cls+=' locked-past';
+      else if(isFuture)cls+=' locked-future';
+      if(isToday&&!isDone)cls+=' today-btn';
+      var box=document.createElement('div');box.className='day-box';
+      box.innerHTML='<div class="day-name">'+DAY_NAMES[d]+'</div><div class="day-date">'+fmtShort(dateStr)+'</div><button class="'+cls+'" id="btn-'+w+'-'+d+'" onclick="toggle('+w+','+d+',this)" aria-label="'+wk.label+' '+DAY_NAMES[d]+'">'+(isDone?'\u2713':'')+'</button>';
       grid.appendChild(box);
     }
     sec.appendChild(grid);
-    const wp=document.createElement('div');
-    wp.className='week-prog';
-    wp.innerHTML='<div class="week-prog-track"><div class="week-prog-fill" id="wpf-'+w+'" style="width:'+Math.round(wd/wk.days*100)+'%"></div></div>';
+    var wp=document.createElement('div');wp.className='week-prog';
+    wp.innerHTML='<div class="week-prog-track"><div class="week-prog-fill" id="wpf-'+w+'" style="width:0%"></div></div>';
     sec.appendChild(wp);
-    const exDiv=document.createElement('div');
-    exDiv.className='ex-section';
-    const exs=EXERCISES[w];
-    let moveHtml='',powerHtml='';
+    /* exercises */
+    var exDiv=document.createElement('div');exDiv.className='ex-section';
+    var exs=EXERCISES[w];var moveH='',powerH='';
     exs.forEach(function(ex){
-      const tag=ex.carry?'<span class="carry-tag">carry-over</span>':'';
-      const cls2='ex-item'+(ex.carry?' ex-carry':'');
-      const dot=ex.type==='move'?'dot-move':'dot-power';
-      const h='<div class="'+cls2+'"><span class="ex-dot '+dot+'"></span><span class="ex-name">'+ex.name+tag+'<span class="ex-cue">'+ex.cue+'</span></span><span class="ex-sets">'+ex.sets+'</span></div>';
-      if(ex.type==='move') moveHtml+=h; else powerHtml+=h;
+      var tag=ex.carry?'<span class="carry-tag">carry-over</span>':'';
+      var c2='ex-item'+(ex.carry?' ex-carry':'');
+      var dot=ex.type==='move'?'dot-move':'dot-power';
+      var h='<div class="'+c2+'"><span class="ex-dot '+dot+'"></span><span class="ex-name">'+ex.name+tag+'<span class="ex-cue">'+ex.cue+'</span></span><span class="ex-sets">'+ex.sets+'</span></div>';
+      if(ex.type==='move')moveH+=h;else powerH+=h;
     });
-    exDiv.innerHTML='<div class="ex-section-title">Movement skills</div><div class="ex-grid">'+moveHtml+'</div><div class="ex-section-title" style="margin-top:8px;">Rotational power</div><div class="ex-grid">'+powerHtml+'</div>';
+    exDiv.innerHTML='<div class="ex-section-title">Movement skills</div><div class="ex-grid">'+moveH+'</div><div class="ex-section-title" style="margin-top:8px;">Rotational power</div><div class="ex-grid">'+powerH+'</div>';
     sec.appendChild(exDiv);
+    /* speed drill */
+    var sd=SPEED_DRILLS[w]||SPEED_DRILLS[0];
+    var sdRow=document.createElement('div');sdRow.className='speed-drill-row';
+    sdRow.innerHTML='<div class="speed-drill-icon">'+sd.icon+'</div><div class="speed-drill-info"><div class="speed-drill-name">Speed Drill: '+sd.name+'</div><div class="speed-drill-desc">'+sd.desc+'</div></div><div class="speed-drill-badge">+2 &#11088;</div>';
+    sec.appendChild(sdRow);
     container.appendChild(sec);
   });
 }
 
-/* ── PIN PAD ── */
-let pinEntry='';
+/* PIN */
+var pinEntry='';
 function pinPress(digit){
-  if(pinEntry.length>=4) return;
+  if(pinEntry.length>=4)return;
   pinEntry+=digit;
-  const disp=document.getElementById('pin-display');
-  disp.textContent='•'.repeat(pinEntry.length)+'·'.repeat(4-pinEntry.length);
-  disp.classList.add('active');
-  if(pinEntry.length===4) setTimeout(checkPin,120);
+  var disp=document.getElementById('pin-display');
+  disp.textContent='\u2022'.repeat(pinEntry.length)+'\u00b7'.repeat(4-pinEntry.length);
+  disp.className='pin-display active';
+  if(pinEntry.length===4)setTimeout(checkPin,120);
 }
-function pinClear(){
-  pinEntry='';
-  const disp=document.getElementById('pin-display');
-  disp.textContent='••••';
-  disp.className='pin-display';
-  document.getElementById('pin-msg').textContent='';
-}
+function pinClear(){pinEntry='';var d=document.getElementById('pin-display');d.textContent='\u2022\u2022\u2022\u2022';d.className='pin-display';document.getElementById('pin-msg').textContent='';}
 function checkPin(){
-  const disp=document.getElementById('pin-display');
-  const msg=document.getElementById('pin-msg');
+  var disp=document.getElementById('pin-display');
+  var msg=document.getElementById('pin-msg');
   if(pinEntry==='5400'){
-    /* reset today only */
-    const today=todayStr();
-    const cwi=currentWeekIdx();
-    for(let d=0;d<WEEKS[cwi].days;d++){
-      const dateStr=addDays(WEEKS[cwi].start,d);
-      if(dateStr===today) delete state[dayKey(cwi,d)];
-    }
-    saveState(state);
-    disp.className='pin-display success';
-    disp.textContent='OK';
-    msg.textContent="Today’s session cleared";
-    refreshButtons();updateAll();
-  } else if(pinEntry==='4110'){
-    /* reset current week */
-    const cwi=currentWeekIdx();
-    for(let d=0;d<WEEKS[cwi].days;d++) delete state[dayKey(cwi,d)];
-    saveState(state);
-    disp.className='pin-display success';
-    disp.textContent='OK';
-    msg.textContent="This week cleared";
-    refreshButtons();updateAll();
-  } else if(pinEntry==='9110'){
-    /* reset everything */
-    const b=state._buckets||0;
-    state={};
-    state._buckets=b;
-    saveState(state);
-    disp.className='pin-display success';
-    disp.textContent='OK';
-    msg.textContent="All sessions cleared";
-    refreshButtons();updateAll();
-  } else {
-    disp.className='pin-display error';
-    disp.textContent='NOPE';
-    disp.classList.add('shake');
+    var today=todayStr();var cwi=currentWeekIdx();
+    for(var d=0;d<WEEKS[cwi].days;d++){if(addDays(WEEKS[cwi].start,d)===today)delete state[dayKey(cwi,d)];}
+    saveState(state);disp.className='pin-display success';disp.textContent='OK';msg.textContent="Today cleared";refreshButtons();updateAll();
+  }else if(pinEntry==='4110'){
+    var cwi2=currentWeekIdx();
+    for(var d2=0;d2<WEEKS[cwi2].days;d2++)delete state[dayKey(cwi2,d2)];
+    saveState(state);disp.className='pin-display success';disp.textContent='OK';msg.textContent="This week cleared";refreshButtons();updateAll();
+  }else if(pinEntry==='9110'){
+    var bk=state._bucket||0,sp=state._speed||0;state={};state._bucket=bk;state._speed=sp;
+    saveState(state);disp.className='pin-display success';disp.textContent='OK';msg.textContent="All sessions cleared";refreshButtons();updateAll();
+  }else{
+    disp.className='pin-display error';disp.textContent='NOPE';
+    disp.classList.add('shake');disp.addEventListener('animationend',function(){disp.classList.remove('shake');},{once:true});
     msg.textContent="Wrong code";
-    disp.addEventListener('animationend',()=>disp.classList.remove('shake'),{once:true});
   }
   pinEntry='';
-  setTimeout(()=>{
-    disp.className='pin-display';
-    disp.textContent='••••';
-    msg.textContent='';
-  },1800);
+  setTimeout(function(){disp.className='pin-display';disp.textContent='\u2022\u2022\u2022\u2022';msg.textContent='';},1800);
 }
 function refreshButtons(){
-  const today=todayStr();
-  for(let w=0;w<WEEKS.length;w++){
-    for(let d=0;d<WEEKS[w].days;d++){
-      const btn=document.getElementById('btn-'+w+'-'+d);
-      if(!btn) continue;
-      const dateStr=addDays(WEEKS[w].start,d);
-      const isDone=!!state[dayKey(w,d)];
-      const isPast=dateStr<today;
-      const isToday=dateStr===today;
-      const isFuture=dateStr>today;
+  var today=todayStr();
+  for(var w=0;w<WEEKS.length;w++){
+    for(var d=0;d<WEEKS[w].days;d++){
+      var btn=document.getElementById('btn-'+w+'-'+d);
+      if(!btn)continue;
+      var dateStr=addDays(WEEKS[w].start,d);
+      var isDone=!!state[dayKey(w,d)];
       btn.className='tap-btn';
-      if(isDone){btn.classList.add('done');btn.textContent='✓';}
-      else{
-        btn.textContent='';
-        if(isPast) btn.classList.add('locked-past');
-        else if(isFuture) btn.classList.add('locked-future');
-        if(isToday && !isDone) btn.classList.add('today-btn');
-      }
+      if(isDone){btn.classList.add('done');btn.textContent='\u2713';}
+      else{btn.textContent='';if(dateStr<today)btn.classList.add('locked-past');else if(dateStr>today)btn.classList.add('locked-future');if(dateStr===today)btn.classList.add('today-btn');}
     }
   }
 }
 
-buildWeeks();
-updateAll();
-setTimeout(function(){
-  const el=document.getElementById('week-'+currentWeekIdx());
-  if(el) el.scrollIntoView({behavior:'smooth',block:'start'});
-},200);
+buildWeeks();updateAll();
+setTimeout(function(){var el=document.getElementById('week-'+currentWeekIdx());if(el)el.scrollIntoView({behavior:'smooth',block:'start'});},250);
 </script>
 </body>
 </html>

@@ -52,15 +52,12 @@ body::before{content:'';position:fixed;inset:0;background-image:repeating-linear
 .day-box{display:flex;flex-direction:column;align-items:center;gap:3px;}
 .day-name{font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--gray);}
 .day-date{font-family:'Barlow Condensed',sans-serif;font-size:9px;color:rgba(122,144,168,.55);}
-.tap-btn{width:48px;height:48px;border-radius:10px;border:2px solid rgba(255,255,255,.14);background:rgba(255,255,255,.04);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:transform .15s,background .18s,border-color .18s;-webkit-tap-highlight-color:transparent;}
-.tap-btn.done{background:var(--green);border-color:var(--green-dark);}
-.tap-btn.locked-past{background:rgba(255,255,255,.02);border-color:rgba(255,255,255,.05);cursor:not-allowed;opacity:.3;}
-.tap-btn.locked-future{background:rgba(255,255,255,.015);border-color:rgba(255,255,255,.04);cursor:not-allowed;opacity:.18;}
-.tap-btn.today-btn:not(.done){border-color:var(--accent);box-shadow:0 0 0 3px rgba(214,40,40,.3);}
+.tap-btn{width:52px;height:52px;border-radius:10px;border:2px solid rgba(255,255,255,.14);background:rgba(255,255,255,.04);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:700;color:#0c1520;transition:transform .15s,background .18s,border-color .18s;-webkit-tap-highlight-color:transparent;user-select:none;}
+.tap-btn.done{background:var(--green);border-color:var(--green-dark);color:#0c1520;}
+.tap-btn.locked-past{background:rgba(255,255,255,.02);border-color:rgba(255,255,255,.05);cursor:not-allowed;opacity:.3;color:transparent;}
+.tap-btn.locked-future{background:rgba(255,255,255,.015);border-color:rgba(255,255,255,.04);cursor:not-allowed;opacity:.18;color:transparent;}
+.tap-btn.today-btn{border-color:var(--accent);box-shadow:0 0 0 3px rgba(214,40,40,.3);}
 .tap-btn:active:not(.locked-past):not(.locked-future){transform:scale(.88);}
-.checkmark{font-size:22px;opacity:0;transform:scale(.3) rotate(-20deg);transition:opacity .18s,transform .18s;color:#0c1520;font-weight:bold;line-height:1;user-select:none;}
-.tap-btn.done .checkmark{opacity:1;transform:scale(1) rotate(0deg);}
-.dot-icon{font-size:10px;opacity:.35;}
 .week-prog{margin:0 16px 10px;}
 .week-prog-track{height:4px;background:rgba(255,255,255,.06);border-radius:2px;overflow:hidden;}
 .week-prog-fill{height:100%;background:var(--green);border-radius:2px;transition:width .3s;}
@@ -83,10 +80,22 @@ body::before{content:'';position:fixed;inset:0;background-image:repeating-linear
 .celebration.show{display:block;}
 .cel-text{font-family:'Bebas Neue',sans-serif;font-size:28px;color:var(--green);letter-spacing:.04em;}
 .cel-sub{font-family:'Barlow Condensed',sans-serif;font-size:14px;color:rgba(255,255,255,.5);margin-top:4px;}
-.reset-btn{display:block;margin:24px auto 0;background:none;border:1px solid rgba(255,255,255,.12);border-radius:8px;color:var(--gray);font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;padding:9px 20px;cursor:pointer;}
-.reset-btn:hover{background:rgba(255,255,255,.06);color:var(--cream);}
-@keyframes pop{0%{transform:scale(1)}40%{transform:scale(1.22)}70%{transform:scale(.93)}100%{transform:scale(1)}}
-.pop{animation:pop .28s ease forwards;}
+/* PIN PAD */
+.pin-section{margin-top:40px;border-top:1px solid rgba(255,255,255,.07);padding-top:24px;text-align:center;}
+.pin-label{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.2);margin-bottom:12px;}
+.pin-display{font-family:'Bebas Neue',sans-serif;font-size:32px;letter-spacing:.2em;color:rgba(255,255,255,.15);height:44px;margin-bottom:12px;transition:color .2s;}
+.pin-display.active{color:var(--gold);}
+.pin-display.error{color:#e24b4a;}
+.pin-display.success{color:var(--green);}
+.pin-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;max-width:220px;margin:0 auto;}
+.pin-btn{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:10px;color:rgba(255,255,255,.4);font-family:'Bebas Neue',sans-serif;font-size:26px;padding:12px;cursor:pointer;transition:background .15s,color .15s,transform .1s;-webkit-tap-highlight-color:transparent;}
+.pin-btn:active{transform:scale(.9);background:rgba(255,255,255,.12);color:var(--white);}
+.pin-clear{grid-column:1;font-size:16px;font-family:'Barlow Condensed',sans-serif;font-weight:600;color:rgba(255,255,255,.3);}
+.pin-zero{grid-column:2;}
+@keyframes pop{0%{transform:scale(1)}40%{transform:scale(1.2)}70%{transform:scale(.95)}100%{transform:scale(1)}}
+.pop{animation:pop .25s ease forwards;}
+.shake{animation:shake .35s ease forwards;}
+@keyframes shake{0%{transform:translateX(0)}20%{transform:translateX(-6px)}40%{transform:translateX(6px)}60%{transform:translateX(-4px)}80%{transform:translateX(4px)}100%{transform:translateX(0)}}
 </style>
 </head>
 <body>
@@ -110,8 +119,8 @@ body::before{content:'';position:fixed;inset:0;background-image:repeating-linear
     </div>
     <div class="stat-card"><div class="stat-num" id="hdr-pct">0%</div><div class="stat-lbl">Complete</div></div>
     <div class="bucket-card">
-      <button class="bucket-btn" onclick="logBucket(this)">&#9918; +5 Stars</button>
-      <div class="bucket-stat" id="bucket-stat">0 buckets &middot; 0 bonus &#11088;</div>
+      <div style="display:flex;gap:6px;"><button class="bucket-btn" onclick="logBucket(this)">&#9918; +5</button><button class="bucket-btn" style="background:rgba(255,255,255,.15);color:var(--gray);font-size:10px;" onclick="undoBucket(this)">&#8722;5</button></div>
+      <div class="bucket-stat" id="bucket-stat">0 buckets &middot; 0&#11088;</div>
     </div>
   </div>
   <div class="prog-label"><span>Summer progress</span><span id="hdr-prog-lbl">0 / 83 sessions</span></div>
@@ -124,65 +133,160 @@ body::before{content:'';position:fixed;inset:0;background-image:repeating-linear
     <div class="cel-sub">You went the whole summer, Atley. That&rsquo;s incredible.</div>
   </div>
   <div id="weeks-container"></div>
-  <button class="reset-btn" onclick="resetAll()">Reset all checkboxes</button>
+
+  <!-- PIN PAD -->
+  <div class="pin-section">
+    <div class="pin-label">Parent reset &mdash; enter code</div>
+    <div class="pin-display" id="pin-display">&bull;&bull;&bull;&bull;</div>
+    <div class="pin-grid">
+      <button class="pin-btn" onclick="pinPress('1')">1</button>
+      <button class="pin-btn" onclick="pinPress('2')">2</button>
+      <button class="pin-btn" onclick="pinPress('3')">3</button>
+      <button class="pin-btn" onclick="pinPress('4')">4</button>
+      <button class="pin-btn" onclick="pinPress('5')">5</button>
+      <button class="pin-btn" onclick="pinPress('6')">6</button>
+      <button class="pin-btn" onclick="pinPress('7')">7</button>
+      <button class="pin-btn" onclick="pinPress('8')">8</button>
+      <button class="pin-btn" onclick="pinPress('9')">9</button>
+      <button class="pin-btn pin-clear" onclick="pinClear()">CLR</button>
+      <button class="pin-btn pin-zero" onclick="pinPress('0')">0</button>
+    </div>
+    <div id="pin-msg" style="font-family:'Barlow Condensed',sans-serif;font-size:12px;color:rgba(255,255,255,.3);margin-top:10px;min-height:18px;letter-spacing:.06em;"></div>
+  </div>
 </div>
 <script>
-const KEY='atley_v3';
+const KEY='atley_v4';
 const WEEKS=[{"label": "Week 1", "dates": "Jun 1\u20138", "start": "2025-06-01", "days": 7}, {"label": "Week 2", "dates": "Jun 9\u201315", "start": "2025-06-09", "days": 7}, {"label": "Week 3", "dates": "Jun 16\u201322", "start": "2025-06-16", "days": 7}, {"label": "Week 4", "dates": "Jun 23\u201329", "start": "2025-06-23", "days": 7}, {"label": "Week 5", "dates": "Jun 30\u2013Jul 6", "start": "2025-06-30", "days": 7}, {"label": "Week 6", "dates": "Jul 7\u201313", "start": "2025-07-07", "days": 7}, {"label": "Week 7", "dates": "Jul 14\u201320", "start": "2025-07-14", "days": 7}, {"label": "Week 8", "dates": "Jul 21\u201327", "start": "2025-07-21", "days": 7}, {"label": "Week 9", "dates": "Jul 28\u2013Aug 3", "start": "2025-07-28", "days": 7}, {"label": "Week 10", "dates": "Aug 4\u201310", "start": "2025-08-04", "days": 7}, {"label": "Week 11", "dates": "Aug 11\u201317", "start": "2025-08-11", "days": 7}, {"label": "Week 12", "dates": "Aug 18\u201323", "start": "2025-08-18", "days": 6}];
 const EXERCISES=[[{"name": "Bodyweight squat", "sets": "3\u00d78", "cue": "Sit back like there\u2019s a chair", "type": "move", "carry": false}, {"name": "Hip hinge (broomstick)", "sets": "10 reps", "cue": "Head, back, tailbone touch stick", "type": "move", "carry": false}, {"name": "Single-leg balance", "sets": "3\u00d710 sec", "cue": "Hold still \u2014 try eyes closed!", "type": "move", "carry": false}, {"name": "Standing trunk rotations", "sets": "2\u00d715", "cue": "Belly button spins side to side", "type": "power", "carry": false}, {"name": "Step-and-twist", "sets": "2\u00d78/side", "cue": "Step forward, rotate to front knee", "type": "power", "carry": false}, {"name": "Assisted pull-up", "sets": "3\u00d75", "cue": "Band or chair \u2014 chin clears bar", "type": "move", "carry": false}], [{"name": "Bodyweight squat", "sets": "3\u00d710", "cue": "Deeper each rep \u2014 slow down", "type": "move", "carry": true}, {"name": "Hip hinge (broomstick)", "sets": "12 reps", "cue": "Push hips back, not down", "type": "move", "carry": true}, {"name": "Reverse lunge", "sets": "3\u00d76/leg", "cue": "Step back, stay tall at top", "type": "move", "carry": false}, {"name": "Dead bug", "sets": "2\u00d76/side", "cue": "Opposite arm and leg, super slow", "type": "move", "carry": false}, {"name": "Step-and-twist", "sets": "3\u00d78/side", "cue": "Bigger rotation each time", "type": "power", "carry": true}, {"name": "Assisted pull-up", "sets": "3\u00d76", "cue": "Squeeze shoulder blades at top", "type": "move", "carry": true}], [{"name": "Goblet squat (DB)", "sets": "3\u00d78", "cue": "DB at chest, sit all the way back", "type": "move", "carry": false}, {"name": "Reverse lunge", "sets": "3\u00d78/leg", "cue": "Front knee tracks over toes", "type": "move", "carry": true}, {"name": "Dead bug", "sets": "3\u00d76/side", "cue": "Lower back flat on floor always", "type": "move", "carry": true}, {"name": "DB chest press into wall", "sets": "2\u00d78/side", "cue": "Stand sideways \u2014 hips drive first", "type": "power", "carry": false}, {"name": "Hip turn drill", "sets": "2\u00d710", "cue": "Feet planted, only hips spin", "type": "power", "carry": false}, {"name": "Assisted pull-up", "sets": "3\u00d76", "cue": "Control the way down \u2014 3 sec", "type": "move", "carry": false}], [{"name": "Goblet squat (DB)", "sets": "3\u00d710", "cue": "Pause at the bottom 2 sec", "type": "move", "carry": true}, {"name": "Hip turn drill", "sets": "3\u00d710", "cue": "Load back hip first, then fire", "type": "power", "carry": true}, {"name": "Single-leg RDL", "sets": "2\u00d76/leg", "cue": "Tip forward like a slow teapot", "type": "move", "carry": false}, {"name": "Plank hold", "sets": "3\u00d720 sec", "cue": "Squeeze everything \u2014 straight line", "type": "move", "carry": false}, {"name": "DB chest press into wall", "sets": "3\u00d78/side", "cue": "Hip-shoulder separation focus", "type": "power", "carry": true}, {"name": "Assisted pull-up", "sets": "3\u00d78", "cue": "Try with a little less help", "type": "move", "carry": false}], [{"name": "Single-leg RDL", "sets": "3\u00d76/leg", "cue": "Reach DB toward floor \u2014 control it", "type": "move", "carry": true}, {"name": "Plank\u2192shoulder taps", "sets": "3\u00d720 sec", "cue": "Don\u2019t let hips rock side to side", "type": "move", "carry": false}, {"name": "Half-kneeling DB press", "sets": "2\u00d78/side", "cue": "One knee down, press overhead slow", "type": "move", "carry": false}, {"name": "Pallof press (band)", "sets": "2\u00d78/side", "cue": "Press out and hold \u2014 resist the spin", "type": "power", "carry": false}, {"name": "Swing simulation w/ DB", "sets": "3\u00d76/side", "cue": "Load \u2192 hips \u2192 contact \u2192 finish \u2014 slow!", "type": "power", "carry": false}, {"name": "Assisted pull-up", "sets": "3\u00d78", "cue": "Pause 1 sec at the top", "type": "move", "carry": false}], [{"name": "Half-kneeling DB press", "sets": "3\u00d78/side", "cue": "Core tight \u2014 don\u2019t lean away", "type": "move", "carry": true}, {"name": "Pallof press (band)", "sets": "3\u00d78/side", "cue": "Slow press out \u2014 3 sec hold", "type": "power", "carry": true}, {"name": "Lateral lunge", "sets": "3\u00d76/side", "cue": "Big step sideways, sit into hip", "type": "move", "carry": false}, {"name": "Plank\u2192rotation", "sets": "2\u00d78/side", "cue": "Plank then reach arm to the sky", "type": "move", "carry": false}, {"name": "Swing simulation w/ DB", "sets": "3\u00d78/side", "cue": "Pick up pace slightly \u2014 stay controlled", "type": "power", "carry": true}, {"name": "Assisted pull-up", "sets": "4\u00d76", "cue": "Focus on the squeeze at the top", "type": "move", "carry": false}], [{"name": "Lateral lunge", "sets": "3\u00d78/side", "cue": "Add a DB hold for extra challenge", "type": "move", "carry": true}, {"name": "Plank\u2192rotation", "sets": "3\u00d78/side", "cue": "Hold the top position 2 sec", "type": "move", "carry": true}, {"name": "Goblet squat\u2192press", "sets": "3\u00d76", "cue": "Squat down, stand up, press DB up", "type": "move", "carry": false}, {"name": "Scoop toss simulation", "sets": "2\u00d78/side", "cue": "Drive hips, scoop DB upward", "type": "power", "carry": false}, {"name": "Swing simulation w/ DB", "sets": "3\u00d78/side", "cue": "Hips always beat shoulders to ball", "type": "power", "carry": true}, {"name": "Assisted pull-up", "sets": "4\u00d76", "cue": "Try one rep with less help", "type": "move", "carry": false}], [{"name": "Goblet squat\u2192press", "sets": "3\u00d78", "cue": "Fluid movement \u2014 no pause between", "type": "move", "carry": true}, {"name": "Scoop toss simulation", "sets": "3\u00d78/side", "cue": "Explosive hip pop, arms follow", "type": "power", "carry": true}, {"name": "Single-leg RDL", "sets": "3\u00d78/leg", "cue": "Reach further \u2014 feel the hamstring", "type": "move", "carry": false}, {"name": "Dead bug", "sets": "3\u00d78/side", "cue": "Breathe out as you extend", "type": "move", "carry": false}, {"name": "Full swing pattern review", "sets": "3\u00d76/side", "cue": "Connect all 4 phases \u2014 narrate each", "type": "power", "carry": false}, {"name": "Assisted pull-up", "sets": "4\u00d78", "cue": "Least assistance yet \u2014 you got this", "type": "move", "carry": false}], [{"name": "Full swing pattern review", "sets": "3\u00d78/side", "cue": "Speed it up \u2014 still controlled", "type": "power", "carry": true}, {"name": "Lateral lunge", "sets": "3\u00d78/side", "cue": "Explosive push off \u2014 snap back up", "type": "move", "carry": false}, {"name": "Half-kneeling DB press", "sets": "3\u00d710/side", "cue": "Heavier DB if form is solid", "type": "move", "carry": true}, {"name": "Pallof press (band)", "sets": "3\u00d710/side", "cue": "Hold position 4 sec each rep", "type": "power", "carry": false}, {"name": "Plank\u2192rotation", "sets": "3\u00d710/side", "cue": "Reach high \u2014 full rotation", "type": "move", "carry": true}, {"name": "Assisted pull-up", "sets": "4\u00d78", "cue": "Goal: 2 reps with no help", "type": "move", "carry": false}], [{"name": "Pallof press (band)", "sets": "3\u00d710/side", "cue": "Thicker band or step further away", "type": "power", "carry": true}, {"name": "Full swing pattern review", "sets": "4\u00d76/side", "cue": "Dad films one set \u2014 study it", "type": "power", "carry": false}, {"name": "Goblet squat\u2192press", "sets": "3\u00d710", "cue": "Add weight if last week felt easy", "type": "move", "carry": false}, {"name": "Scoop toss simulation", "sets": "3\u00d710/side", "cue": "Hip pop is everything \u2014 arms follow", "type": "power", "carry": true}, {"name": "Single-leg RDL", "sets": "3\u00d78/leg", "cue": "Slow down, feel every inch", "type": "move", "carry": false}, {"name": "Assisted pull-up", "sets": "4\u00d78", "cue": "Push for 3 reps with no help", "type": "move", "carry": false}], [{"name": "Goblet squat\u2192press", "sets": "4\u00d78", "cue": "Strongest week \u2014 show it", "type": "move", "carry": true}, {"name": "Scoop toss simulation", "sets": "4\u00d78/side", "cue": "Maximum hip speed \u2014 let it rip", "type": "power", "carry": false}, {"name": "Lateral lunge", "sets": "4\u00d78/side", "cue": "Drive hard off the planted foot", "type": "move", "carry": true}, {"name": "Full swing pattern review", "sets": "4\u00d78/side", "cue": "This is what summer built \u2014 own it", "type": "power", "carry": true}, {"name": "Plank\u2192rotation", "sets": "3\u00d710/side", "cue": "Strong and slow \u2014 last week of this", "type": "move", "carry": true}, {"name": "Assisted pull-up", "sets": "4\u00d78", "cue": "Push for 5 reps with no help", "type": "move", "carry": false}], [{"name": "Full swing pattern review", "sets": "3\u00d76/side", "cue": "Feel the whole summer in this swing", "type": "power", "carry": false}, {"name": "Goblet squat\u2192press", "sets": "3\u00d76", "cue": "Clean, controlled \u2014 celebrate your form", "type": "move", "carry": true}, {"name": "Scoop toss simulation", "sets": "3\u00d76/side", "cue": "Explosive but smooth \u2014 you earned this", "type": "power", "carry": true}, {"name": "Pallof press (band)", "sets": "3\u00d78/side", "cue": "Strong core \u2014 you built this all summer", "type": "power", "carry": false}, {"name": "Lateral lunge", "sets": "3\u00d76/side", "cue": "Final week \u2014 make every rep count", "type": "move", "carry": false}, {"name": "Assisted pull-up", "sets": "3\u00d76", "cue": "How many can you do without help now?", "type": "move", "carry": false}]];
 const DAY_NAMES=['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
 const TOTAL=83;
 const STARS_PER=13;
 const BUCKET_STARS=5;
-const COLORS=['#f4a900','#ffd166','#2ecc71','#5baaf0','#ff6b6b','#fff'];
-function parseDate(s){const[y,m,d]=s.split('-').map(Number);return new Date(y,m-1,d);}
-function todayStr(){const n=new Date();return `${n.getFullYear()}-${String(n.getMonth()+1).padStart(2,'0')}-${String(n.getDate()).padStart(2,'0')}`;}
-function addDays(s,n){const d=parseDate(s);d.setDate(d.getDate()+n);return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;}
-function fmtShort(s){const d=parseDate(s);return ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][d.getMonth()]+' '+d.getDate();}
+const COLORS=['#f4a900','#ffd166','#2ecc71','#5baaf0','#ff6b6b','#fff','#ff9f43'];
+
+/* ── LOCAL DATE (no UTC shift) ── */
+function todayStr(){
+  const n=new Date();
+  const y=n.getFullYear();
+  const m=String(n.getMonth()+1).padStart(2,'0');
+  const d=String(n.getDate()).padStart(2,'0');
+  return y+'-'+m+'-'+d;
+}
+function addDays(s,n){
+  const parts=s.split('-');
+  const d=new Date(+parts[0],+parts[1]-1,+parts[2],12,0,0);
+  d.setDate(d.getDate()+n);
+  const y=d.getFullYear();
+  const m=String(d.getMonth()+1).padStart(2,'0');
+  const dd=String(d.getDate()).padStart(2,'0');
+  return y+'-'+m+'-'+dd;
+}
+function fmtShort(s){
+  const parts=s.split('-');
+  const d=new Date(+parts[0],+parts[1]-1,+parts[2]);
+  return ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][d.getMonth()]+' '+d.getDate();
+}
 function dayKey(w,d){return 'w'+w+'d'+d;}
 function loadState(){try{return JSON.parse(localStorage.getItem(KEY))||{};}catch(e){return {};}}
 function saveState(s){try{localStorage.setItem(KEY,JSON.stringify(s));}catch(e){}}
 let state=loadState();
+
 function currentWeekIdx(){
   const t=todayStr();
-  for(let w=0;w<WEEKS.length;w++){const last=addDays(WEEKS[w].start,WEEKS[w].days-1);if(t>=WEEKS[w].start&&t<=last)return w;}
-  return t<WEEKS[0].start?0:WEEKS.length-1;
+  /* precomputed end dates to avoid addDays timezone issues */
+  const ENDS=['2025-06-08','2025-06-15','2025-06-22','2025-06-29','2025-07-06','2025-07-13','2025-07-20','2025-07-27','2025-08-03','2025-08-10','2025-08-17','2025-08-23'];
+  for(let w=0;w<WEEKS.length;w++){
+    if(t>=WEEKS[w].start && t<=ENDS[w]) return w;
+  }
+  return t<WEEKS[0].start ? 0 : WEEKS.length-1;
 }
+
+/* ── FIREWORKS ── */
 function fireworks(el){
-  const r=el.getBoundingClientRect(),cx=r.left+r.width/2,cy=r.top+r.height/2;
+  const r=el.getBoundingClientRect();
+  const cx=r.left+r.width/2, cy=r.top+r.height/2;
   const c=document.getElementById('fw');
-  for(let i=0;i<20;i++){
-    const s=document.createElement('div');s.className='spark';
-    const a=Math.random()*Math.PI*2,dist=55+Math.random()*90;
-    s.style.cssText=`left:${cx}px;top:${cy}px;background:${COLORS[Math.floor(Math.random()*COLORS.length)]};--dx:${Math.cos(a)*dist}px;--dy:${Math.sin(a)*dist-25}px;animation-delay:${Math.random()*.12}s;animation-duration:${.55+Math.random()*.4}s;`;
-    c.appendChild(s);s.addEventListener('animationend',()=>s.remove());
+  for(let i=0;i<22;i++){
+    const s=document.createElement('div');
+    s.className='spark';
+    const a=Math.random()*Math.PI*2;
+    const dist=60+Math.random()*100;
+    s.style.left=cx+'px';s.style.top=cy+'px';
+    s.style.background=COLORS[Math.floor(Math.random()*COLORS.length)];
+    s.style.setProperty('--dx',Math.cos(a)*dist+'px');
+    s.style.setProperty('--dy',(Math.sin(a)*dist-30)+'px');
+    s.style.animationDelay=Math.random()*.15+'s';
+    s.style.animationDuration=(.55+Math.random()*.45)+'s';
+    c.appendChild(s);
+    s.addEventListener('animationend',()=>s.remove());
   }
 }
+
+/* ── TOGGLE ── */
 function toggle(w,d,el){
-  const today=todayStr(),dateStr=addDays(WEEKS[w].start,d);
-  if(dateStr>today)return;
-  const k=dayKey(w,d);state[k]=!state[k];saveState(state);
-  if(state[k]){el.classList.add('done','pop');el.innerHTML='<span class="checkmark">&#10003;</span>';el.addEventListener('animationend',()=>el.classList.remove('pop'),{once:true});fireworks(el);}
-  else{el.classList.remove('done');el.innerHTML='';}
+  const today=todayStr();
+  const dateStr=addDays(WEEKS[w].start,d);
+  /* only allow today or earlier days in current/past weeks */
+  if(dateStr!==today) return;
+  const k=dayKey(w,d);
+  state[k]=!state[k];
+  saveState(state);
+  if(state[k]){
+    el.classList.add('done');
+    el.textContent='✓';
+    el.classList.add('pop');
+    el.addEventListener('animationend',()=>el.classList.remove('pop'),{once:true});
+    fireworks(el);
+  } else {
+    el.classList.remove('done');
+    el.textContent='';
+  }
   updateAll();
 }
+
+/* ── BUCKET ── */
 function logBucket(btn){
-  state._buckets=(state._buckets||0)+1;saveState(state);
-  btn.classList.add('pop');btn.addEventListener('animationend',()=>btn.classList.remove('pop'),{once:true});
-  fireworks(btn);updateAll();
+  state._buckets=(state._buckets||0)+1;
+  saveState(state);
+  btn.classList.add('pop');
+  btn.addEventListener('animationend',()=>btn.classList.remove('pop'),{once:true});
+  fireworks(btn);
+  updateAll();
 }
+
+
+/* __ UNDO BUCKET __ */
+function undoBucket(btn){
+  if(!state._buckets||state._buckets<=0) return;
+  state._buckets=state._buckets-1;
+  saveState(state);
+  btn.classList.add('pop');
+  btn.addEventListener('animationend',function(){btn.classList.remove('pop')},{once:true});
+  updateAll();
+}
+
+/* ── UPDATE STATS ── */
 function updateAll(){
   const cwi=currentWeekIdx();
-  let totalDone=0,wkDone=0,totalStars=0,wkStars=0;
+  let totalDone=0,wkSessionsDone=0,totalStars=0,wkStars=0;
   const buckets=state._buckets||0;
   for(let w=0;w<WEEKS.length;w++){
     let wd=0;
-    for(let d=0;d<WEEKS[w].days;d++)if(state[dayKey(w,d)]){wd++;totalDone++;totalStars+=STARS_PER;if(w===cwi){wkDone++;wkStars+=STARS_PER;}}
-    const pf=document.getElementById('wpf-'+w);if(pf)pf.style.width=Math.round(wd/WEEKS[w].days*100)+'%';
-    const wsb=document.getElementById('wsb-'+w);if(wsb)wsb.textContent=wd*STARS_PER+' ⭐';
-    const wdb=document.getElementById('wdb-'+w);if(wdb)wdb.style.display=wd===WEEKS[w].days?'inline':'none';
+    for(let d=0;d<WEEKS[w].days;d++){
+      if(state[dayKey(w,d)]){
+        wd++;totalDone++;totalStars+=STARS_PER;
+        if(w===cwi){wkSessionsDone++;wkStars+=STARS_PER;}
+      }
+    }
+    const pf=document.getElementById('wpf-'+w);
+    if(pf) pf.style.width=Math.round(wd/WEEKS[w].days*100)+'%';
+    const wsb=document.getElementById('wsb-'+w);
+    if(wsb) wsb.textContent=wd*STARS_PER+' ⭐';
+    const wdb=document.getElementById('wdb-'+w);
+    if(wdb) wdb.style.display=wd===WEEKS[w].days?'inline':'none';
   }
-  const bonus=buckets*BUCKET_STARS;totalStars+=bonus;wkStars+=bonus;
+  const bonus=buckets*BUCKET_STARS;
+  totalStars+=bonus; wkStars+=bonus;
   const pct=Math.round(totalDone/TOTAL*100);
   document.getElementById('hdr-done').textContent=totalDone;
   document.getElementById('hdr-wk-stars').textContent=wkStars;
@@ -190,62 +294,167 @@ function updateAll(){
   document.getElementById('hdr-pct').textContent=pct+'%';
   document.getElementById('hdr-prog-fill').style.width=pct+'%';
   document.getElementById('hdr-prog-lbl').textContent=totalDone+' / '+TOTAL+' sessions';
-  document.getElementById('bucket-stat').textContent=buckets+' bucket'+(buckets!==1?'s':'')+' · '+bonus+' bonus ⭐';
+  document.getElementById('bucket-stat').textContent=buckets+' bucket'+(buckets!==1?'s':'')+' · '+bonus+'⭐';
   document.getElementById('celebration').classList.toggle('show',totalDone===TOTAL);
 }
+
+/* ── BUILD WEEKS ── */
 function buildWeeks(){
   const container=document.getElementById('weeks-container');
-  const today=todayStr();const cwi=currentWeekIdx();
+  const today=todayStr();
+  const cwi=currentWeekIdx();
   WEEKS.forEach((wk,w)=>{
     const isCurrent=w===cwi;
-    let wd=0;for(let d=0;d<wk.days;d++)if(state[dayKey(w,d)])wd++;
+    let wd=0;
+    for(let d=0;d<wk.days;d++) if(state[dayKey(w,d)]) wd++;
     const sec=document.createElement('div');
     sec.className='week-section'+(isCurrent?' current-week':'');
     sec.id='week-'+w;
-    const hdr=document.createElement('div');hdr.className='week-header';
-    hdr.innerHTML=`<div><div class="week-label-big">${wk.label}</div><div class="week-dates">${wk.dates}</div></div>${isCurrent?'<span class="week-now-badge">This week</span>':''}<span class="week-stars-badge" id="wsb-${w}">${wd*STARS_PER} &#11088;</span><span class="week-done-badge" id="wdb-${w}" style="display:${wd===wk.days?'inline':'none'}">&#10003; Done</span>`;
+    const hdr=document.createElement('div');
+    hdr.className='week-header';
+    hdr.innerHTML='<div><div class="week-label-big">'+wk.label+'</div><div class="week-dates">'+wk.dates+'</div></div>'
+      +(isCurrent?'<span class="week-now-badge">This week</span>':'')
+      +'<span class="week-stars-badge" id="wsb-'+w+'">'+wd*STARS_PER+' &#11088;</span>'
+      +'<span class="week-done-badge" id="wdb-'+w+'" style="display:'+(wd===wk.days?'inline':'none')+'">&#10003; Done</span>';
     sec.appendChild(hdr);
-    const grid=document.createElement('div');grid.className='days-grid';
+    const grid=document.createElement('div');
+    grid.className='days-grid';
     for(let d=0;d<wk.days;d++){
       const dateStr=addDays(wk.start,d);
-      const isPast=dateStr<today,isToday=dateStr===today,isFuture=dateStr>today;
+      const isPast=dateStr<today;
+      const isToday=dateStr===today;
+      const isFuture=dateStr>today;
       const isDone=!!state[dayKey(w,d)];
       let cls='tap-btn';
-      if(isDone)cls+=' done';
-      else if(isPast)cls+=' locked-past';
-      else if(isFuture)cls+=' locked-future';
-      if(isToday&&!isDone)cls+=' today-btn';
-      const inner=isDone?'<span class="checkmark">&#10003;</span>':(isPast||isFuture)?'<span class="dot-icon">&middot;</span>':'';
-      const box=document.createElement('div');box.className='day-box';
-      box.innerHTML=`<div class="day-name">${DAY_NAMES[d]}</div><div class="day-date">${fmtShort(dateStr)}</div><button class="${cls}" id="btn-${w}-${d}" onclick="toggle(${w},${d},this)" aria-label="${wk.label} ${DAY_NAMES[d]}">${inner}</button>`;
+      if(isDone) cls+=' done';
+      else if(isPast) cls+=' locked-past';
+      else if(isFuture) cls+=' locked-future';
+      if(isToday && !isDone) cls+=' today-btn';
+      const box=document.createElement('div');
+      box.className='day-box';
+      const btnText=isDone?'✓':'';
+      box.innerHTML='<div class="day-name">'+DAY_NAMES[d]+'</div>'
+        +'<div class="day-date">'+fmtShort(dateStr)+'</div>'
+        +'<button class="'+cls+'" id="btn-'+w+'-'+d+'" onclick="toggle('+w+','+d+',this)" aria-label="'+wk.label+' '+DAY_NAMES[d]+'">'+btnText+'</button>';
       grid.appendChild(box);
     }
     sec.appendChild(grid);
-    const wp=document.createElement('div');wp.className='week-prog';
-    wp.innerHTML=`<div class="week-prog-track"><div class="week-prog-fill" id="wpf-${w}" style="width:${Math.round(wd/wk.days*100)}%"></div></div>`;
+    const wp=document.createElement('div');
+    wp.className='week-prog';
+    wp.innerHTML='<div class="week-prog-track"><div class="week-prog-fill" id="wpf-'+w+'" style="width:'+Math.round(wd/wk.days*100)+'%"></div></div>';
     sec.appendChild(wp);
-    const exDiv=document.createElement('div');exDiv.className='ex-section';
-    const exs=EXERCISES[w];let moveHtml='',powerHtml='';
-    exs.forEach(ex=>{
+    const exDiv=document.createElement('div');
+    exDiv.className='ex-section';
+    const exs=EXERCISES[w];
+    let moveHtml='',powerHtml='';
+    exs.forEach(function(ex){
       const tag=ex.carry?'<span class="carry-tag">carry-over</span>':'';
-      const cls='ex-item'+(ex.carry?' ex-carry':'');
+      const cls2='ex-item'+(ex.carry?' ex-carry':'');
       const dot=ex.type==='move'?'dot-move':'dot-power';
-      const h=`<div class="${cls}"><span class="ex-dot ${dot}"></span><span class="ex-name">${ex.name}${tag}<span class="ex-cue">${ex.cue}</span></span><span class="ex-sets">${ex.sets}</span></div>`;
-      if(ex.type==='move')moveHtml+=h;else powerHtml+=h;
+      const h='<div class="'+cls2+'"><span class="ex-dot '+dot+'"></span><span class="ex-name">'+ex.name+tag+'<span class="ex-cue">'+ex.cue+'</span></span><span class="ex-sets">'+ex.sets+'</span></div>';
+      if(ex.type==='move') moveHtml+=h; else powerHtml+=h;
     });
-    exDiv.innerHTML=`<div class="ex-section-title">Movement skills</div><div class="ex-grid">${moveHtml}</div><div class="ex-section-title" style="margin-top:8px;">Rotational power</div><div class="ex-grid">${powerHtml}</div>`;
+    exDiv.innerHTML='<div class="ex-section-title">Movement skills</div><div class="ex-grid">'+moveHtml+'</div><div class="ex-section-title" style="margin-top:8px;">Rotational power</div><div class="ex-grid">'+powerHtml+'</div>';
     sec.appendChild(exDiv);
     container.appendChild(sec);
   });
 }
-function resetAll(){
-  if(!confirm("Reset all of Atley's checkboxes?"))return;
-  state={};saveState(state);
-  document.querySelectorAll('.tap-btn').forEach(b=>{b.classList.remove('done');if(b.querySelector('.checkmark'))b.innerHTML=''});
-  updateAll();
+
+/* ── PIN PAD ── */
+let pinEntry='';
+function pinPress(digit){
+  if(pinEntry.length>=4) return;
+  pinEntry+=digit;
+  const disp=document.getElementById('pin-display');
+  disp.textContent='•'.repeat(pinEntry.length)+'·'.repeat(4-pinEntry.length);
+  disp.classList.add('active');
+  if(pinEntry.length===4) setTimeout(checkPin,120);
 }
-buildWeeks();updateAll();
-setTimeout(()=>{const el=document.getElementById('week-'+currentWeekIdx());if(el)el.scrollIntoView({behavior:'smooth',block:'start'});},200);
+function pinClear(){
+  pinEntry='';
+  const disp=document.getElementById('pin-display');
+  disp.textContent='••••';
+  disp.className='pin-display';
+  document.getElementById('pin-msg').textContent='';
+}
+function checkPin(){
+  const disp=document.getElementById('pin-display');
+  const msg=document.getElementById('pin-msg');
+  if(pinEntry==='5400'){
+    /* reset today only */
+    const today=todayStr();
+    const cwi=currentWeekIdx();
+    for(let d=0;d<WEEKS[cwi].days;d++){
+      const dateStr=addDays(WEEKS[cwi].start,d);
+      if(dateStr===today) delete state[dayKey(cwi,d)];
+    }
+    saveState(state);
+    disp.className='pin-display success';
+    disp.textContent='OK';
+    msg.textContent="Today’s session cleared";
+    refreshButtons();updateAll();
+  } else if(pinEntry==='4110'){
+    /* reset current week */
+    const cwi=currentWeekIdx();
+    for(let d=0;d<WEEKS[cwi].days;d++) delete state[dayKey(cwi,d)];
+    saveState(state);
+    disp.className='pin-display success';
+    disp.textContent='OK';
+    msg.textContent="This week cleared";
+    refreshButtons();updateAll();
+  } else if(pinEntry==='9110'){
+    /* reset everything */
+    const b=state._buckets||0;
+    state={};
+    state._buckets=b;
+    saveState(state);
+    disp.className='pin-display success';
+    disp.textContent='OK';
+    msg.textContent="All sessions cleared";
+    refreshButtons();updateAll();
+  } else {
+    disp.className='pin-display error';
+    disp.textContent='NOPE';
+    disp.classList.add('shake');
+    msg.textContent="Wrong code";
+    disp.addEventListener('animationend',()=>disp.classList.remove('shake'),{once:true});
+  }
+  pinEntry='';
+  setTimeout(()=>{
+    disp.className='pin-display';
+    disp.textContent='••••';
+    msg.textContent='';
+  },1800);
+}
+function refreshButtons(){
+  const today=todayStr();
+  for(let w=0;w<WEEKS.length;w++){
+    for(let d=0;d<WEEKS[w].days;d++){
+      const btn=document.getElementById('btn-'+w+'-'+d);
+      if(!btn) continue;
+      const dateStr=addDays(WEEKS[w].start,d);
+      const isDone=!!state[dayKey(w,d)];
+      const isPast=dateStr<today;
+      const isToday=dateStr===today;
+      const isFuture=dateStr>today;
+      btn.className='tap-btn';
+      if(isDone){btn.classList.add('done');btn.textContent='✓';}
+      else{
+        btn.textContent='';
+        if(isPast) btn.classList.add('locked-past');
+        else if(isFuture) btn.classList.add('locked-future');
+        if(isToday && !isDone) btn.classList.add('today-btn');
+      }
+    }
+  }
+}
+
+buildWeeks();
+updateAll();
+setTimeout(function(){
+  const el=document.getElementById('week-'+currentWeekIdx());
+  if(el) el.scrollIntoView({behavior:'smooth',block:'start'});
+},200);
 </script>
 </body>
 </html>
